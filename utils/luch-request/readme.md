@@ -30,7 +30,14 @@ http.get('/user/login', {
     params: {userName: 'name', password: '123456'}, /* 会加在url上 */
     header: {}, /* 会覆盖全局header */
     dataType: 'json',
+    // 注：如果局部custom与全局custom有同名属性，则后面的属性会覆盖前面的属性，相当于Object.assign(全局，局部)
+    custom: {auth: true}, // 可以加一些自定义参数，在拦截器等地方使用。比如这里我加了一个auth，可在拦截器里拿到，如果true就传token
+    // #ifndef MP-ALIPAY || APP-PLUS
     responseType: 'text',
+    // #endif
+    // #ifdef MP-ALIPAY
+    timeout: 30000, // 仅支付宝小程序支持
+    // #endif
     // #ifdef APP-PLUS
     sslVerify: true // 验证 ssl 证书 仅5+App安卓端支持（HBuilderX 2.3.3+）
     // #endif
@@ -53,7 +60,14 @@ http.post('/user/login', {userName: 'name', password: '123456'}, {
     params: {}, /* 会加在url上 */
     header: {}, /* 会覆盖全局header */
     dataType: 'json',
+    // 注：如果局部custom与全局custom有同名属性，则后面的属性会覆盖前面的属性，相当于Object.assign(全局，局部)
+    custom: {auth: true}, // 可以加一些自定义参数，在拦截器等地方使用。比如这里我加了一个auth，可在拦截器里拿到，如果true就传token
+    // #ifndef MP-ALIPAY || APP-PLUS
     responseType: 'text',
+    // #endif
+    // #ifdef MP-ALIPAY
+    timeout: 30000, // 仅支付宝小程序支持
+    // #endif
     // #ifdef APP-PLUS
     sslVerify: true // 验证 ssl 证书 仅5+App安卓端支持（HBuilderX 2.3.3+）
     // #endif
@@ -70,6 +84,8 @@ http.upload('api/upload/img', {
     files: [], // 仅5+App支持
     fileType：'image/video/audio', // 仅支付宝小程序，且必填。
     filePath: '', // 要上传文件资源的路径。
+    // 注：如果局部custom与全局custom有同名属性，则后面的属性会覆盖前面的属性，相当于Object.assign(全局，局部)
+    custom: {auth: true}, // 可以加一些自定义参数，在拦截器等地方使用。比如这里我加了一个auth，可在拦截器里拿到，如果true就传token
     name: 'file', // 文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
     header: {},
     formData: {}, // HTTP 请求中其他额外的 form data
@@ -91,7 +107,9 @@ http.request({
      },
      params: { // 会拼接到url上
         token: '1111'
-     }
+     },
+    // 注：如果局部custom与全局custom有同名属性，则后面的属性会覆盖前面的属性，相当于Object.assign(全局，局部)
+     custom: {} // 自定义参数
 })
 
 具体参数说明：[uni.uploadFile](https://uniapp.dcloud.io/api/request/network-file)
@@ -100,7 +118,8 @@ http.upload('api/upload/img', {
     fileType：'image/video/audio', // 仅支付宝小程序，且必填。
     filePath: '', // 要上传文件资源的路径。
     name: 'file', // 文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
-    header: {}, // 如填写，会覆盖全局header
+    header: {}, // 如填写，会覆盖全局header,
+    custom: {} // 自定义参数
     formData: {}, // HTTP 请求中其他额外的 form data
 })
 ```
@@ -125,16 +144,23 @@ http.trace(url[, data[, config]])
 --
 ``` javascript
 {
-    baseUrl: '', /* 全局根路径，需要注意，如果请求的路径为绝对路径，则不会应用baseUrl */
-    header: {
-        'Content-Type': 'application/json;charset=UTF-8'
-    },
-    method: 'GET',
-    dataType: 'json',
-    responseType: 'text',
-    // #ifdef APP-PLUS
-    sslVerify: true
-    // #endif
+      baseUrl: '',
+      header: {
+        'content-type': 'application/json;charset=UTF-8'
+      },
+      method: 'GET',
+      dataType: 'json',
+      // #ifndef MP-ALIPAY || APP-PLUS
+      responseType: 'text',
+      // #endif
+    // 注：如果局部custom与全局custom有同名属性，则后面的属性会覆盖前面的属性，相当于Object.assign(全局，局部)
+      custom: {}, // 全局自定义参数默认值
+      // #ifdef MP-ALIPAY
+      timeout: 30000,
+      // #endif
+      // #ifdef APP-PLUS
+      sslVerify: true
+      // #endif
 }
 ```
 
@@ -170,7 +196,7 @@ http.validateStatus = (statusCode) => { // 默认
 
 // 举个栗子
 http.validateStatus = (statusCode) => {
-   return statusCode >= 200 && statusCode < 300
+   return statusCode && statusCode >= 200 && statusCode < 300
 }
 ```
 
@@ -192,7 +218,9 @@ http.interceptor.request((config, cancel) => { /* cancel 为函数，如果调�
         ...config.header,
         a: 1
     }
-    /*
+    // if (config.custom.auth) {
+    //   config.header.token = 'token'
+    // }
     if (!token) { // 如果token不存在，调用cancel 会取消本次请求，但是该函数的catch() 仍会执行
         cancel('token 不存在', config) //  把修改后的config传入，之后响应就可以拿到修改后的config。 如果调用了cancel但是不传修改后的config，则catch((err) => {}) err.config 为request拦截器修改之前的config
     }
@@ -208,6 +236,9 @@ http.interceptor.response((response) => { /* 对响应成功做点什么 （stat
   //  if (response.data.code !== 200) { // 服务端返回的状态码不等于200，则reject()
   //    return Promise.reject(response)
   //  }
+ // if (response.config.custom.verification) { // 演示自定义参数的作用
+  //   return response.data
+  // }
   console.log(response)
   return response
 }, (response) => { /*  对响应错误做点什么 （statusCode !== 200），必须return response*/
@@ -241,7 +272,11 @@ http.interceptor.response((response) => { /* 对响应成功做点什么 （stat
 4. 'Content-Type' 为什么要小写？
     - hbuilderX 更新至‘2.3.0.20190919’ 后，uni.request post请求，如果 ‘Content-Type’ 大写，就会在后面自动拼接‘ application/json’，请求头变成
       `Content-Type: application/json;charset=UTF-8 application/json`，导致后端无法解析类型，`Status Code 415`，post 请求失败。但是小写就不会出现这个问题。至于为什么我也没有深究，我现在也不清楚这是他们的bug,还是以后就这样规范了。我能做的只有立马兼容，至于后边uni官方会不会继续变动也不清楚。
-
+5. 为什么不支持task？
+    - 一方面精力有限，另一方面违背了本人的一些意愿，具体看第6条
+6. 为什么不能配置超时时间？
+    - 配置超时时间，请求时需要task,并且每个请求都需要创建一个定时器，本人认为这个消耗没必要。设置超时时间可以通过<a href="https://uniapp.dcloud.io/collocation/manifest?id=networktimeout" target="_blank">manifest.json 配置</a>进行设置。我想用的就是一个小而简单的请求插件。
+    
 
 **tip**
 --

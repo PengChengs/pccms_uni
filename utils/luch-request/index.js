@@ -1,14 +1,14 @@
 import Request from './request'
 
 const test = new Request()
-
 test.setConfig((config) => { /* 设置全局配置 */
-  config.baseUrl = 'http://www.aaa.cn'
+  config.baseUrl = 'https://erp.sceo360.com'
   config.header = {
     ...config.header,
     a: 1,
     b: 2
   }
+  // config.custom = { auth: true }
   return config
 })
 
@@ -17,6 +17,9 @@ test.interceptor.request((config, cancel) => { /* 请求之前拦截器 */
     ...config.header,
     a: 3
   }
+  // if (config.custom.auth) {
+  //   config.header.token = 'token'
+  // }
   /*
   if (!token) { // 如果token不存在，调用cancel 会取消本次请求，但是该函数的catch() 仍会执行
     cancel('token 不存在') // 接收一个参数，会传给catch((err) => {}) err.errMsg === 'token 不存在'
@@ -43,7 +46,7 @@ test.interceptor.response((response) => { /* 请求之后拦截器 */
 const http = new Request()
 
 http.setConfig((config) => { /* 设置全局配置 */
-  config.baseUrl = 'http://www.bbb.cn' /* 根域名不同 */
+  // config.baseUrl = 'https://erp.sceo360.com' /* 根域名不同 */
   config.header = {
     ...config.header,
     a: 1,
@@ -77,6 +80,9 @@ http.interceptor.request((config, cancel) => { /* 请求之前拦截器 */
 http.interceptor.response((response) => { /* 请求之后拦截器 */
   // if (response.data.code !== 200) { // 服务端返回的状态码不等于200，则reject()
   //   return Promise.reject(response)
+  // }
+  // if (response.config.custom.verification) { // 演示自定义参数的作用
+  //   return response.data
   // }
   return response
 }, (response) => { // 请求错误做点什么
