@@ -74,3 +74,36 @@ $uni-color-subtitle: #555555; // 二级标题颜色
 $uni-font-size-subtitle:36upx;
 $uni-color-paragraph: #3F536E; // 文章段落颜色
 $uni-font-size-paragraph:30upx;
+
+/**********************************上面是系统初始化样式*******************************************/
+/* 底部导航样式 */
+/* 主要颜色 */
+
+$dominantHue:#0086E7;//主色调 蓝
+
+/* 文本颜色 */
+$blackAll: #000000; //主文字颜色 黑
+$mediumGrey: #666777;//副文字颜色  中灰
+$lightGray: #a4a6bf;//副文字颜色  浅灰
+$redAll:#FF5050;// 文本红色
+
+$bleed:30upx;//屏幕左右边距
+
+$navHeight:49px; //导航栏高度
+$navBoxHeight:34px; //导航栏盒子高度，XR系列底部HOME健
+
+
+$barHeight:44px; //标题栏高度
+$barTopHeight:44px; //标题栏上内边距
+
+
+
+/* 边框以及背景颜色 */
+$brimColor:#E4E4E4;  //边框横线颜色
+$BRColor:#a4a6bf;  //边框颜色
+$skeletonColor:#eaeaea; //骨架背景色
+
+/****************************上面是底部导航样式*****************************/
+/* uni.scss */
+@import 'uview-ui/theme.scss';
+/****************************上面是 uview-ui样式*****************************/

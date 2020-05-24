@@ -1,52 +1,53 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+	<view >
+		<!-- 自定义导航位置 -->
+		<!-- 页面需要的自定义导航 -->
+		<!-- 页面 -->
+		<home v-if="index === 0"/>
+		<cate v-if="index === 1"/>
+		<shop v-if="index === 2"/>
+		<user v-if="index === 3"/>
+		<!-- 底部导航 -->
+		<foo-bar @toIndex="toIndex"></foo-bar>
 	</view>
 </template>
 
 <script>
+	import home from  '../home/home.vue'
+	import cate from  '../cate/cate.vue'
+	import shop from  '../enshrine/enshrine.vue'
+	import user from  '../user/user.vue'
+	import fooBar from  '@/components/fooBar/fooBar.vue'
 	export default {
+		components:{
+			home,
+			cate,
+			shop,
+			user,
+			fooBar
+		},
 		data() {
 			return {
-				title: 'Hello'
+				index: 0,
+				title: '首页',
+				skeletonOff: false,
 			}
 		},
 		onLoad() {
-
+			console.log(this.$baseUrl);
 		},
 		methods: {
+			toIndex(index){
+				// index 当前页面的索引
+				this.index = index
+				// 根据index判断页面
+				// 修改自定义导航标题等
+			},
 
 		}
 	}
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
+	
 </style>
