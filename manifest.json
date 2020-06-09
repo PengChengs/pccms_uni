@@ -55,7 +55,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wx60561356f28c0a96",
         "setting" : {
             "urlCheck" : false
         },
@@ -71,6 +71,23 @@
         "usingComponents" : true
     },
     "h5" : {
-        "title" : "逍遥综合网"
+        "devServer" : {
+            "port" : 8000, //端口号
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://cms.chengit.cn",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/api" : "/api"
+                    }
+                }
+            }
+        },
+        "title" : "逍遥阁",
+        "router" : {
+            "mode" : "history"
+        }
     }
 }

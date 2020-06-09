@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "u-notice-bar": "/node-modules/uview-ui/components/u-notice-bar/u-notice-bar",
-    "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
-    "u-search": "/node-modules/uview-ui/components/u-search/u-search"
-  },
-  "component": true
-}

@@ -1,6 +1,6 @@
 
-const baseUrl = 'https://cms.chengit.cn';
+export const baseUrl = 'https://cms.chengit.cn';
 
-export default{
-	baseUrl
-}
+// export {
+// 	baseUrl
+// }

@@ -9,7 +9,28 @@
 				"navigationBarTitleText": "逍遥阁"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/home/home",
+            "style" : {}
+        }
+    ],
+	// "tabBar": {
+	//     "color": "#7A7E83",
+	//     "selectedColor": "#3cc51f",
+	//     "borderStyle": "black",
+	//     "backgroundColor": "#ffffff",
+	//     "list": [{
+	//         "pagePath": "pages/home/home",
+	//         "iconPath": "static/logo1.png",
+	//         "selectedIconPath": "static/logo1.png",
+	//         "text": "首页"
+	//     }, {
+	//         "pagePath": "pages/user/user",
+	//         "iconPath": "static/logo1.png",
+	//         "selectedIconPath": "static/logo1.png",
+	//         "text": "书架"
+	//     }]
+	// },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "逍遥阁",

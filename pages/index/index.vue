@@ -1,13 +1,11 @@
 <template>
 	<view >
-		<!-- 自定义导航位置 -->
-		<!-- 页面需要的自定义导航 -->
-		<!-- 页面 -->
+		
 		<home v-if="index === 0"/>
 		<cate v-if="index === 1"/>
 		<shop v-if="index === 2"/>
 		<user v-if="index === 3"/>
-		<!-- 底部导航 -->
+		
 		<foo-bar @toIndex="toIndex"></foo-bar>
 	</view>
 </template>
@@ -18,6 +16,7 @@
 	import shop from  '../enshrine/enshrine.vue'
 	import user from  '../user/user.vue'
 	import fooBar from  '@/components/fooBar/fooBar.vue'
+	// import api from '@/utils/api.js'
 	export default {
 		components:{
 			home,
@@ -34,7 +33,17 @@
 			}
 		},
 		onLoad() {
-			console.log(this.$baseUrl);
+			// console.log(this.$baseUrl);
+			
+			// let data={
+			// 	pageSize:10
+			// }
+			// api.bookHotList(data).then(res => {
+			// 	console.log(res.data.data)
+			// 	that.list2=res.data.data
+			// }).catch(err => {
+				
+			// });
 		},
 		methods: {
 			toIndex(index){
