@@ -21,7 +21,18 @@
 					分类
 				</view>
 			</view>
-			<view class="nav-tab" :class="{'nav-tab-active':home===2}" @click="toIndex(2)">
+			<!-- 跳转独立的搜索页 -->
+			<view class="nav-tab" @click="toIndex(2)">
+				<view class="nav-icon" >
+					<view class="circle">
+						<i class="iconfont search" />
+					</view>
+				</view>
+				<view class="nav-text">
+					搜索
+				</view>
+			</view>
+			<view class="nav-tab" :class="{'nav-tab-active':home===3}" @click="toIndex(3)">
 				<view class="nav-icon" >
 					<view class="circle">
 						<i class="iconfont enshrine" />
@@ -31,7 +42,7 @@
 					收藏夹
 				</view>
 			</view>
-			<view class="nav-tab" :class="{'nav-tab-active':home===3}" @click="toIndex(3)">
+			<view class="nav-tab" :class="{'nav-tab-active':home===4}" @click="toIndex(4)">
 				<view class="nav-icon" >
 					<view class="circle">
 						<i class="iconfont user" />
@@ -63,14 +74,17 @@
 				})
 			},
 			toIndex(index) {
-				// if (index === 2) {
-				// 	uni.navigateTo({
-				// 		url: '../../pages/search/search'
-				// 	});
-				// } else {
+				console.log(index);
+				if (index === 2) {
+					console.log(index);
+					uni.navigateTo({
+						url: '../../pages/search/search'
+					});
+					console.log(index);
+				} else {
 					this.$emit('toIndex', index)
 					this.home = index
-				// }
+				}
 
 			}
 		}

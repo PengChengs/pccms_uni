@@ -8,7 +8,6 @@
  * HBuilderX: 2.7.9
  */
 import Request from 'luch-request'
-import {baseUrl} from '@/utils/base.js'
 
 
 const getTokenStorage = () => {

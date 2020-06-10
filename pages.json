@@ -6,12 +6,17 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "逍遥阁"
+				"navigationBarTitleText": "逍遥阁",
+				"h5":{
+					"titleNView": false
+				}
 			}
 		}
 	    ,{
-            "path" : "pages/home/home",
-            "style" : {}
+            "path" : "pages/search/search",
+            "style" : {
+				
+			}
         }
     ],
 	// "tabBar": {

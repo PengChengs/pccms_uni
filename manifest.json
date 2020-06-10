@@ -88,6 +88,11 @@
         "title" : "逍遥阁",
         "router" : {
             "mode" : "history"
-        }
+        },
+		"optimization": {
+		        "treeShaking": { //摇树优化
+		            "enable": true
+		        }
+		}
     }
 }

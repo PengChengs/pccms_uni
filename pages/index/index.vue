@@ -1,10 +1,10 @@
 <template>
-	<view >
+	<view class="page">
 		
 		<home v-if="index === 0"/>
 		<cate v-if="index === 1"/>
-		<shop v-if="index === 2"/>
-		<user v-if="index === 3"/>
+		<shop v-if="index === 3"/>
+		<user v-if="index === 4"/>
 		
 		<foo-bar @toIndex="toIndex"></foo-bar>
 	</view>
@@ -16,7 +16,6 @@
 	import shop from  '../enshrine/enshrine.vue'
 	import user from  '../user/user.vue'
 	import fooBar from  '@/components/fooBar/fooBar.vue'
-	// import api from '@/utils/api.js'
 	export default {
 		components:{
 			home,
@@ -33,17 +32,7 @@
 			}
 		},
 		onLoad() {
-			// console.log(this.$baseUrl);
-			
-			// let data={
-			// 	pageSize:10
-			// }
-			// api.bookHotList(data).then(res => {
-			// 	console.log(res.data.data)
-			// 	that.list2=res.data.data
-			// }).catch(err => {
-				
-			// });
+
 		},
 		methods: {
 			toIndex(index){

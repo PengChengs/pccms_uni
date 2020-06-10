@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "u-notice-bar": "/node-modules/uview-ui/components/u-notice-bar/u-notice-bar",
+    "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
+    "u-section": "/node-modules/uview-ui/components/u-section/u-section",
+    "booklist": "/components/booklist/booklist"
+  },
+  "component": true
+}

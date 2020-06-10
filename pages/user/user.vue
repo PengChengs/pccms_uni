@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="page">
 		<view class="cont">
 			我的
 		</view>
