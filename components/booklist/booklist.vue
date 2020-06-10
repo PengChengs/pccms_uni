@@ -44,6 +44,7 @@
 		background-color: #ffffff;
 		border-radius: 10upx;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); //; 5upx 2upx 8upx #656B79
+		// border: 1px solid red;
 	}
 
 	.books-img image {
@@ -54,11 +55,11 @@
 	}
 	.books-text{
 		flex-direction:row;
-		margin-left: 20upx;
+		margin-left: 50upx;
 	}
 	.books-text .head{
 		color: #2979ff;
-		font:32upx KaiTi;
+		font:30upx Microsoft Yahei; //Microsoft Yahei KaiTi
 		font-weight:bold;
 	}
 	.books-text .title-box{

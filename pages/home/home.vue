@@ -7,7 +7,7 @@
 		
 		<!-- 轮播图 -->
 		<view class="wrap">
-				<u-swiper mode="round" :effect3d="true" :title="true" :list="list2" @click="swiperClick"></u-swiper>
+				<u-swiper mode="round" :interval="3000" :effect3d="true" :title="true" :list="list2" @click="swiperClick"></u-swiper>
 		</view>
 		
 		<!-- 首页导航 -->
@@ -24,23 +24,32 @@
 		
 		<!-- 推荐 -->
 		<view class="hot">
-			<u-section title="推荐小说" sub-title="查看更多" :right="false" :bold="true" :color="color"></u-section>
-			<booklist :booklist='list3' />
+			<u-section title="推荐小说" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
+			<booklist2 :booklist='list3' />
 		</view>
 		<!-- 热门 -->
 		<view class="hot">
-			<u-section title="热门小说" sub-title="查看更多" :right="false" :bold="true" :color="color"></u-section>
-			<booklist :booklist='list4' />
+			<u-section title="热门小说" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
+			<booklist2 :booklist='list4' />
 		</view>
+		
+		<!-- 猜你喜欢 -->
+		<view class="hot">
+			<u-section title="猜你喜欢" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
+			<booklist :booklist='list3' />
+		</view>
+		<u-divider bg-color="#f2f2f2" color="#909399" margin-bottom="20">我也是有底线的</u-divider>
 	</view>
 </template>
 
 <script>
 	import booklist from '@/components/booklist/booklist.vue'
+	import booklist2 from '@/components/booklist2/booklist2.vue'
 	import api from '@/utils/api.js'
 	export default {
 		components:{
-			booklist
+			booklist,
+			booklist2
 		},
 		data() {
 			return {
@@ -124,12 +133,16 @@
 			},selectBtn(selectKey) { // 首页导航按钮 
 				
 				console.log('你点了第' + selectKey + '个选项')
+			},toBookList(){ //查看更多
+				uni.redirectTo({
+					url:'../book/book?bookTypeTitle=玄幻小说'
+				});
 			},
 			bookRecommendList(){ //推荐小说
 				let that=this
 				console.log("test 方法");
 				let data={
-					pageSize:10
+					pageSize:6
 				}
 				api.bookRecommendList(data).then(res => {
 					console.log(res.data.data)
@@ -141,7 +154,7 @@
 				let that=this
 				console.log("test 方法");
 				let data={
-					pageSize:10
+					pageSize:6
 				}
 				api.bookHotList(data).then(res => {
 					console.log(res.data.data)
@@ -155,11 +168,9 @@
 </script>
 
 <style lang="scss" scoped>
-	.page{
-		bottom: 80upx;
-	}
+
 .cont{
-	padding: 0upx 40upx 0upx 40upx;
+	padding: 20upx 40upx 0upx 40upx;
 	/* width: 100vw; */
 	/* height: 100vh; */
 	/* display: flex; */
@@ -195,6 +206,7 @@
 	line-height: 26upx;
 }
 .hot{
-	padding: 40upx;
+	padding: 0upx 40upx 20upx 40upx;
+	// border: 1px solid red;
 }
 </style>

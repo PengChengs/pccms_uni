@@ -31,6 +31,29 @@
 	.page::-webkit-scrollbar {
 		display: none
 	}
+	/*苹果x适配 H5APP*/
+	@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+		.subject {
+			bottom: $navHeight + $navBoxHeight;
+			top: $barHeight + $barTopHeight;
+		}
+	}
 	
+	/*苹果xs适配 H5APP*/
+	@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+		.subject {
+			bottom: $navHeight + $navBoxHeight;
+			top: $barHeight + $barTopHeight;
+		}
+	}
+	
+	
+	/*苹果xr适配 H5APP*/
+	@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+		.subject {
+			bottom: $navHeight + $navBoxHeight;
+			top: $barHeight + $barTopHeight;
+		}
+	}
 </style>
 

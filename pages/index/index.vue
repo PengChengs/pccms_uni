@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view>
 		
 		<home v-if="index === 0"/>
 		<cate v-if="index === 1"/>
