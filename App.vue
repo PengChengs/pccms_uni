@@ -21,12 +21,13 @@
 	.page{
 		background-color: #f2f2f2; //#f2f2f2
 		/* 视图窗口 */
-		position: absolute;
-		top: 0upx;
-		left: 0upx;
-		right: 0upx;
-		bottom: $navHeight; //$navHeight
-		overflow: auto;
+		// position: absolute;
+		// top: 0upx;
+		// left: 0upx;
+		// right: 0upx;
+		// bottom: $navHeight; //$navHeight
+		// overflow: auto;
+		padding-bottom: $navHeight;
 	}
 	.page::-webkit-scrollbar {
 		display: none

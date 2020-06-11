@@ -6,7 +6,7 @@
 		<shop v-if="index === 3"/>
 		<user v-if="index === 4"/>
 		
-		<foo-bar @toIndex="toIndex"></foo-bar>
+		<foo-bar @toIndex="toIndex" :index="index"></foo-bar>
 	</view>
 </template>
 
@@ -27,17 +27,31 @@
 		data() {
 			return {
 				index: 0,
-				title: '首页',
-				skeletonOff: false,
 			}
 		},
-		onLoad() {
-
+		onLoad: function (option) {
+			if ( undefined != option.index) {
+				var change=option.index;
+				this.toIndex(parseInt(change))  //特别注意 option中的值为 String类型，在这里需要转为 int类型
+			} else{
+				this.toIndex(0)
+			}
 		},
+		// onReachBottom() {
+		// 	console.log('fasdfasdfa')
+		// },
 		methods: {
 			toIndex(index){
-				// index 当前页面的索引
-				this.index = index
+				// index 当前页面的索引 当点击首页的时候 链接初始化
+				if(this.index!=0 && index===0){
+					uni.reLaunch({
+						url:'../index/index'
+					})
+				}else{
+					this.index = index
+				}
+				
+				
 				// 根据index判断页面
 				// 修改自定义导航标题等
 			},

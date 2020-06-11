@@ -1,7 +1,7 @@
 <template>
 	<view class="bottom">
 		<view class="nav-box">
-			<view class="nav-tab" :class="{'nav-tab-active':home===0}" @click="toIndex(0)">
+			<view class="nav-tab" :class="{'nav-tab-active':home===0}" @click="toIndex(0)" >
 				<view class="nav-icon">
 					<view class="circle">
 						<i class="iconfont home" />
@@ -59,13 +59,13 @@
 <script>
 	export default {
 		components: {},
+		props:['index'],
 		data() {
 			return {
 				home: 0,
 			}
-		},
-		onLoad() {
-				
+		},mounted:function(){
+			this.toIndex(this.index)
 		},
 		methods: {
 			toPage(url) {
@@ -74,9 +74,7 @@
 				})
 			},
 			toIndex(index) {
-				console.log(index);
 				if (index === 2) {
-					console.log(index);
 					uni.navigateTo({
 						url: '../../pages/search/search'
 					});

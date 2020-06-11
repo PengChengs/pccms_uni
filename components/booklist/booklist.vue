@@ -3,7 +3,7 @@
 		<!-- 图文列表 -->
 		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @click="bookTextBtn(information.bookId)">
 			<view class="books-img">
-				<image :src="information.bookLogo" :mode="mode" />
+				<image :src="information.bookLogo" />
 			</view>
 			<view class="books-text">
 				<p class="head">{{information.bookTitle}}</p>
@@ -15,7 +15,6 @@
 				</view>
 			</view>
 		</view>
-
 	</view>
 </template>
 
@@ -25,7 +24,13 @@
 		props: ['booklist'],
 		data() {
 			return {
-				mode:'aspectFit'
+				status: 'loadmore',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				}
 			}
 		},
 		methods: {
@@ -40,12 +45,24 @@
 	.books {
 		display: flex;
 		margin: 20upx 0upx 0upx 0upx;
-		padding: 10upx;
+		padding: 10upx 10upx 0upx 10upx;
 		background-color: #ffffff;
 		border-radius: 10upx;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); //; 5upx 2upx 8upx #656B79
-		// border: 1px solid red;
+		animation: fade-in;/*动画名称*/  
+		animation-duration: 2s;/*动画持续时间*/  
+		-webkit-animation:fade-in 2s;/*针对webkit内核*/ 
 	}
+	@keyframes fade-in {  
+	    0% {opacity: 0;}/*初始状态 透明度为0*/  
+	    40% {opacity: 0;}/*过渡状态 透明度为0*/  
+	    100% {opacity: 1;}/*结束状态 透明度为1*/  
+	}  
+	@-webkit-keyframes fade-in {/*针对webkit内核*/  
+	    0% {opacity: 0;}  
+	    40% {opacity: 0;}  
+	    100% {opacity: 1;}  
+	} 
 
 	.books-img image {
 		width: 160upx;

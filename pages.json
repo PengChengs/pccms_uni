@@ -7,6 +7,7 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "逍遥阁",
+				"onReachBottomDistance":50 ,
 				"h5":{
 					"titleNView": false
 				}
@@ -21,8 +22,11 @@
         ,{
             "path" : "pages/book/book",
             "style" : {
-				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				// "h5":{
+				// 	"navigationStyle": "custom" 
+				// },
+				"navigationStyle": "custom" // 隐藏系统导航栏
+				// "navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
 			}
         }
     ],

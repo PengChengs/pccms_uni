@@ -59,7 +59,8 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {}
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -89,10 +90,11 @@
         "router" : {
             "mode" : "history"
         },
-		"optimization": {
-		        "treeShaking": { //摇树优化
-		            "enable": true
-		        }
-		}
+        "optimization" : {
+            "treeShaking" : {
+                //摇树优化
+                "enable" : true
+            }
+        }
     }
 }

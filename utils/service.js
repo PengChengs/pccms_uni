@@ -8,7 +8,7 @@
  * HBuilderX: 2.7.9
  */
 import Request from 'luch-request'
-
+import {baseUrl} from './base.js'
 
 const getTokenStorage = () => {
   let token = ''
@@ -71,7 +71,9 @@ const getTokenStorage = () => {
 
 const http = new Request()
 http.setConfig((config) => { /* 设置全局配置 */
-  // config.baseURL = baseUrl /* 根域名不同 */
+// #ifndef H5
+  config.baseURL = baseUrl /* 根域名不同 */
+// #endif
   config.header = {
     ...config.header,
     'Content-Type': 'application/x-www-form-urlencoded'  //对于 GET 方法，会将数据转换为 query string。例如 { name: 'name', age: 18 } 转换后的结果是 name=name&age=18。

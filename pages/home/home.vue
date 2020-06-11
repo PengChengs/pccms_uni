@@ -2,7 +2,7 @@
 	<view class="page">
 		<!-- 通知 -->
 		<view class="cont">
-			<u-notice-bar mode="horizontal" :speed="80" :is-circular="true" :more-icon="true" :list="list"></u-notice-bar>
+			<u-notice-bar mode="horizontal" :speed="80" :is-circular="true" :more-icon="true" :list="list" @click="notice"></u-notice-bar>
 		</view>
 		
 		<!-- 轮播图 -->
@@ -35,10 +35,9 @@
 		
 		<!-- 猜你喜欢 -->
 		<view class="hot">
-			<u-section title="猜你喜欢" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
-			<booklist :booklist='list3' />
+			<u-section title="猜你喜欢" sub-title="查看更多" :show-line="true" :right="false" :bold="true" :color="color"></u-section>
+			<booklist :booklist='list5' />
 		</view>
-		<u-divider bg-color="#f2f2f2" color="#909399" margin-bottom="20">我也是有底线的</u-divider>
 	</view>
 </template>
 
@@ -97,11 +96,12 @@
 					],
 					color: this.$u.color['tipsColor'],
 					list3:[],
-					list4:[]
+					list4:[],
+					list5:[]
 					
 			}
 		},
-		//uni-app 生命周期
+		//页面生命周期
 		onReady(){
 			console.log("home 显示 onReady")
 		},onLoad(){
@@ -113,15 +113,17 @@
 		},onUnload(){
 			console.log("home 显示 onUnload")
 		},
-		//vue生命周期
+		//组件生命周期
 		created(){
 			console.log("home 显示 created")
 			this.bookRecommendList();
 			this.bookHotList();
+			this.randBookList();
+			console.log('屏幕高度：'+uni.getSystemInfoSync().screenHeight)
 		},mounted(){
 			console.log("home 显示 mounted")
+			
 		},
-		
 		methods: {
 			notice(){ //通知栏点击事件
 				console.log(this.data.list2)
@@ -131,16 +133,14 @@
 				console.log(this.list2[index])
 				console.log(this.list2[index].url)
 			},selectBtn(selectKey) { // 首页导航按钮 
-				
 				console.log('你点了第' + selectKey + '个选项')
 			},toBookList(){ //查看更多
 				uni.redirectTo({
-					url:'../book/book?bookTypeTitle=玄幻小说'
+					url:'../book/book'
 				});
 			},
 			bookRecommendList(){ //推荐小说
 				let that=this
-				console.log("test 方法");
 				let data={
 					pageSize:6
 				}
@@ -152,13 +152,25 @@
 				});
 			},bookHotList(){ //热门小说
 				let that=this
-				console.log("test 方法");
+				that.status='loading'
 				let data={
 					pageSize:6
 				}
 				api.bookHotList(data).then(res => {
 					console.log(res.data.data)
 					that.list4=res.data.data
+					that.status='nomore'
+				}).catch(err => {
+					
+				});
+			},randBookList(){ //猜你喜欢
+				let that=this
+				let data={
+					pageSize:10
+				}
+				api.randBookList(data).then(res => {
+					console.log(res.data.data)
+					that.list5=res.data.data
 				}).catch(err => {
 					
 				});
