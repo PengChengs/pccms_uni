@@ -1,10 +1,6 @@
 <template>
 	<view class="Subject">
-		<!-- #ifndef H5 -->
-		<view class="status_bar">
-		          <!-- 这里是状态栏 -->
-		</view>
-		<!-- #endif -->
+	
 		<view class="booklist-title">
 			<view class="head but-left">
 				<button size="mini" @click="toHome()" >首页</button>
@@ -21,13 +17,14 @@
 			<view class="book-type" v-for="(info,Key) in menuList" :key="Key">
 				<view class="types" :class="{'change-menu': bookType === info.menuId}" @click="bookList(info.menuId)">{{info.menuName}}</view>
 			</view>
+			<view class="clear-box"></view>
 		</view>
 		<view class="booklist-content">
 			<booklist :booklist="list"></booklist>
 		</view>
 		<u-back-top :scroll-top="scrollTop" top="500" :bottom="50"></u-back-top>
 		<u-toast ref="uToast" />
-		<u-loadmore :status="status" :icon-type="iconType" :load-text="loadText" bg-color="#f2f2f2"/>
+		<u-loadmore :status="status" :icon-type="iconType" :load-text="loadText" bg-color="#f2f2f2" @loadmore="loadmore"/>
 	</view>
 	
 </template>
@@ -55,7 +52,7 @@
 				status: 'loadmore', 
 				iconType: 'flower',
 				loadText: {
-					loadmore: '轻轻上拉',
+					loadmore: '上拉或点击加载更多',
 					loading: '努力加载中',
 					nomore: '实在没有了'
 				},
@@ -68,12 +65,7 @@
 			this.scrollTop = e.scrollTop;
 		},onReachBottom(){
 			console.log("到底了")
-			this.status = 'loading'
-			if(this.pages>this.pageNum){
-				this.bookList(this.bookType);
-			}else{
-				this.status = 'nomore'
-			}
+			this.loadmore();
 			
 		},
 		methods: {
@@ -152,15 +144,22 @@
 					})
 				});
 				that.pageNum++;
+			},
+			loadmore() { //加载更多
+				this.status = 'loadmore'
+				if(this.pages>this.pageNum){
+					this.bookList(this.bookType);
+					this.status = 'loading'
+				}else{
+					this.status = 'nomore'
+				}
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.Subject{
-		background-color: #f2f2f2;
-	}
+	
 	  .status_bar {
 		  position: fixed;
 		  top: 0upx;
@@ -169,16 +168,13 @@
 	  }
 	.booklist-title{
 		display: block;
-		position: fixed;
-		/* #ifdef H5 */
-		top: 0px;
-		/* #endif */
-		/* #ifndef H5 */
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;
 		float: top;
-		/* #endif */
 		z-index: 1;
 		width: 100%;
-		// height: 100upx;
+		height: 100upx;
 		background-color: #71d5a1;
 		.head{
 			display: block;
@@ -202,23 +198,12 @@
 .booklist-type{
 	display: block;
 	width: 100%;
-	height: 300upx;
-	/* #ifndef H5 */
-	padding-top: var(--status-bar-height);
-	margin-top: 120upx;
-	/* #endif */
-	/* #ifdef H5 */
-	margin-top: 96upx;
-	/* #endif */
-	
 	// border: 1px solid red;
 	.book-type{
 		display: block;
 		float: left;
 		height: 60upx;
-		
 		margin: 20upx 0upx 0upx 20upx;
-		// border: 1px solid red;
 		.types{
 			// background-color: red;
 			padding: 6upx 20upx 6upx 20upx;
@@ -227,11 +212,17 @@
 			
 		}
 	}
-	
+
 }
 .change-menu{
 	color: #71d5a1;
 	border-radius: 30upx;
+	border: 1px solid #71d5a1;
+}
+.types:active{
+	color: white;
+	border-radius: 30upx;
+	background-color: #71d5a1;
 	border: 1px solid #71d5a1;
 }
 .booklist-content{

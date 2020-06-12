@@ -43,13 +43,13 @@
 		methods: {
 			toIndex(index){
 				// index 当前页面的索引 当点击首页的时候 链接初始化
-				if(this.index!=0 && index===0){
-					uni.reLaunch({
-						url:'../index/index'
-					})
-				}else{
+				// if(this.index!=0 && index===0){
+				// 	uni.reLaunch({
+				// 		url:'../index/index'
+				// 	})
+				// }else{
 					this.index = index
-				}
+				// }
 				
 				
 				// 根据index判断页面

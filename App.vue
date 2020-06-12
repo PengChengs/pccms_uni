@@ -18,7 +18,7 @@
 	/*每个页面公共css */
 	@import url("static/icon/iconfont.css"); /*此乃底部导航图标样式*/
 	
-	.page{
+	.page{ //tabbar 页面背景颜色及底部填充
 		background-color: #f2f2f2; //#f2f2f2
 		/* 视图窗口 */
 		// position: absolute;
@@ -31,6 +31,14 @@
 	}
 	.page::-webkit-scrollbar {
 		display: none
+	}
+	.Subject{ //普通页 页面背景及颜色
+		background-color: #f2f2f2;
+		// border: 1px solid red;
+	}
+	
+	.clear-box{ //清除两侧浮动
+		clear: both;
 	}
 	/*苹果x适配 H5APP*/
 	@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {

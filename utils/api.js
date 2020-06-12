@@ -16,3 +16,9 @@ exports.mainSysMenuList = (data) => { //小说前台菜单列表
 exports.sysBookType = (data) => { //小说类型最近更新列表，全部,用在分类小说上
     return http.get('/api/book/bk/sysBookType',{params: data})
 }
+exports.sysBook = (data) => { //查询书籍详情
+    return http.get('/api/book/bk/sysBook',{params: data})
+}
+exports.sysBookChapterList = (data) => { //根据书籍id查询章节
+    return http.get('/api/book/chapter/sysBookChapterList',{params: data})
+}

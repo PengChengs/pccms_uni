@@ -9,7 +9,7 @@
 				<p class="head">{{information.bookTitle}}</p>
 				<view class="title-box">
 					<p class="title">作者: {{ information.bookAuthor}}</p>
-					<p class="title">最新章节: {{ information.bookAuthor}}</p>
+					<p class="title">最新章节: {{ information.bookNewChaptersTitle}}</p>
 					<p class="title">章节数: {{ information.bookNewChapters}}章 | {{information.bookStatus == 0 ? '连载中' : '已完结'}}</p>
 					<p class="title">更新时间: {{ information.bookUpdateTime}}</p>
 				</view>
@@ -34,8 +34,11 @@
 			}
 		},
 		methods: {
-			bookTextBtn(bookTextBtn) {
-			 	console.log('你点击了第' + bookTextBtn + '个')
+			bookTextBtn(bookId) {
+			 	console.log('你点击了第' + bookId + '个')
+				uni.navigateTo({
+				    url: '../bookInfo/bookInfo?bookId='+bookId
+				});
 			}
 		}
 	}
@@ -73,6 +76,7 @@
 	.books-text{
 		flex-direction:row;
 		margin-left: 50upx;
+		width: 450upx;
 	}
 	.books-text .head{
 		color: #2979ff;
@@ -83,8 +87,12 @@
 		margin-top: 10upx;
 		.title{
 			margin-top: 5upx;
+			width: 440upx;
 			font:20upx Microsoft Yahei;
 			color: #909399;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 </style>

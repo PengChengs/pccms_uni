@@ -3,7 +3,7 @@
 		<!-- 图文列表 -->
 		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @click="bookTextBtn(information.bookId)">
 			<view class="books-img">
-				<image :src="information.bookLogo" :mode="mode" />
+				<image :src="information.bookLogo" mode="scaleToFill" />
 			</view>
 			<view class="books-text">
 				<!-- <p class="head">{{information.bookTitle}}</p> -->
@@ -25,12 +25,14 @@
 		props: ['booklist'],
 		data() {
 			return {
-				mode:'aspectFit'
 			};
 		},
 		methods: {
-			bookTextBtn(bookTextBtn) {
-			 	console.log('你点击了第' + bookTextBtn + '个')
+			bookTextBtn(bookId) {
+			 	console.log('你点击了第' + bookId + '个')
+				uni.navigateTo({
+				    url: '../bookInfo/bookInfo?bookId='+bookId
+				});
 			}
 		}
 	}

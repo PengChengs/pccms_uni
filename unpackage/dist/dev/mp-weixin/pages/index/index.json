@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "逍遥阁",
+  "usingComponents": {
+    "home": "/pages/home/home",
+    "cate": "/pages/cate/cate",
+    "shop": "/pages/enshrine/enshrine",
+    "user": "/pages/user/user",
+    "foo-bar": "/components/fooBar/fooBar"
+  }
+}
