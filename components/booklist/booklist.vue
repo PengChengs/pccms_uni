@@ -53,8 +53,8 @@
 		border-radius: 10upx;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); //; 5upx 2upx 8upx #656B79
 		animation: fade-in;/*动画名称*/  
-		animation-duration: 2s;/*动画持续时间*/  
-		-webkit-animation:fade-in 2s;/*针对webkit内核*/ 
+		animation-duration: 1.5s;/*动画持续时间*/  
+		-webkit-animation:fade-in 1.5s;/*针对webkit内核*/ 
 	}
 	@keyframes fade-in {  
 	    0% {opacity: 0;}/*初始状态 透明度为0*/  

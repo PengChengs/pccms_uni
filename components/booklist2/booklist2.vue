@@ -55,8 +55,21 @@
 	background-color: #ffffff;
 	border-radius: 10upx;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); //; 5upx 2upx 8upx #656B79
+	animation: fade-in;/*动画名称*/
+	animation-duration: 1.5s;/*动画持续时间*/  
+	-webkit-animation:fade-in 1.5s;/*针对webkit内核*/ 
 
 }
+	@keyframes fade-in {  
+	    0% {opacity: 0;}/*初始状态 透明度为0*/  
+	    40% {opacity: 0;}/*过渡状态 透明度为0*/  
+	    100% {opacity: 1;}/*结束状态 透明度为1*/  
+	}  
+	@-webkit-keyframes fade-in {/*针对webkit内核*/  
+	    0% {opacity: 0;}  
+	    40% {opacity: 0;}  
+	    100% {opacity: 1;}  
+	} 
 
 .books-img image {
 	width: 100%;

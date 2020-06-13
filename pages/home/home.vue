@@ -116,9 +116,13 @@
 		//组件生命周期
 		created(){
 			console.log("home 显示 created")
+			uni.showLoading({ //开启加载框
+			    title: '加载中'
+			});
 			this.bookRecommendList();
 			this.bookHotList();
 			this.randBookList();
+			
 			console.log('屏幕高度：'+uni.getSystemInfoSync().screenHeight)
 		},mounted(){
 			console.log("home 显示 mounted")
@@ -171,6 +175,7 @@
 				api.randBookList(data).then(res => {
 					console.log(res.data.data)
 					that.list5=res.data.data
+					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {
 					
 				});

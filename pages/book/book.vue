@@ -59,9 +59,15 @@
 				//加载更多 end
 			}
 		},onLoad: function (option) {
+			
+			uni.showLoading({ //开启加载框
+			    title: '加载中'
+			});
 			this.bookList(this.bookType);
 			this.mainSysMenuList();
-		},onPageScroll(e) { //回到顶部
+			
+		},
+		onPageScroll(e) { //回到顶部
 			this.scrollTop = e.scrollTop;
 		},onReachBottom(){
 			console.log("到底了")
@@ -109,6 +115,10 @@
 				});
 			},
 			bookList(bookType){ //图书列表
+				uni.showLoading({
+				    title: '加载中',
+					mask: true
+				});
 				let that=this
 				if (that.bookType!==bookType) {
 					that.pageNum=1
@@ -136,6 +146,7 @@
 						})
 					}
 					this.status = 'loadmore'
+					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -147,7 +158,7 @@
 			},
 			loadmore() { //加载更多
 				this.status = 'loadmore'
-				if(this.pages>this.pageNum){
+				if(this.pageNum<=this.pages){
 					this.bookList(this.bookType);
 					this.status = 'loading'
 				}else{

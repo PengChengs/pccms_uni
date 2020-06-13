@@ -22,9 +22,9 @@
 		</view>
 		<view class="book-new">
 			<view class="new-title">
-				<view class="new-title-p new-title-p-left"><u-icon class="icon" name="list-dot"></u-icon></view>
+				<view class="new-title-p new-title-p-left"><u-icon class="icon" label-pos="left" name="list-dot"></u-icon></view>
 				<view class="new-title-p new-title-p-left">目录</view>
-				<view class="new-title-p new-title-p-right" @click="toChapter()">查看更多<u-icon name="arrow-right"></u-icon></view>
+				<view class="new-title-p new-title-p-right" @click="toChapter()">查看更多<u-icon class="icon" label-pos="right" name="arrow-right"></u-icon></view>
 			</view>
 			<view class="new-sub">
 				<view class="new-sub-list"  v-for="(information,dataKey) in chapterList" :key="dataKey" @click="toContent(information.chapterId)"> 
@@ -41,7 +41,7 @@
 		</view>
 		<view class="book-sticky">
 			<view class="sticky-box sticky-left">加入书架</view>
-			<view class="sticky-box sticky-right">开始阅读</view>
+			<view class="sticky-box sticky-right" @click="toChapter()">开始阅读</view>
 		</view>
 		
 		<u-toast ref="uToast" />
@@ -57,6 +57,7 @@
 		},
 		data() {
 			return {
+				bookId: 1,
 				bookInfo:{},
 				chapterList: [],
 				randList: []
@@ -64,15 +65,19 @@
 		},onLoad(option) {
 			console.log('-----------');
 			console.log(option);
-			this.bookinfo(option.bookId);
-			this.sysBookChapterList(option.bookId);
+			this.bookId=option.bookId;
+			uni.showLoading({ //开启加载框
+			    title: '加载中'
+			});
+			this.bookinfo();
+			this.sysBookChapterList();
 			this.randBookList();
 		},
 		methods: {
-			bookinfo(bookId){ //查询书籍详情
+			bookinfo(){ //查询书籍详情
 				let that=this
 				let data={
-					bookId: bookId
+					bookId: that.bookId
 				}
 				this.$api.sysBook(data).then(res => {
 					console.log(res.data)
@@ -94,10 +99,10 @@
 					})
 				});
 			},
-			sysBookChapterList(bookId){
+			sysBookChapterList(bookId){ //查询最新章节
 				let that=this
 				let data={
-					bookId: bookId,
+					bookId: that.bookId,
 					pageSize: 10,
 					sort: 'desc'
 				}
@@ -112,7 +117,7 @@
 							position: 'top'
 						})
 					}
-					
+					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -123,23 +128,43 @@
 			},randBookList(){ //猜你喜欢
 				let that=this
 				let data={
-					pageSize:8
+					pageSize:9
 				}
 				this.$api.randBookList(data).then(res => {
 					console.log(res.data.data)
-					that.randList=res.data.data
+					if(res.data.status === 200){
+						that.randList=res.data.data
+					}else{
+						this.$refs.uToast.show({
+							title: '网络错误',
+							type: 'error',
+							position: 'top'
+						})
+					}
 				}).catch(err => {
-					
+					this.$refs.uToast.show({
+						title: '网络错误',
+						type: 'error',
+						position: 'top'
+					})
 				});
-			},toChapter(){
+			},toChapter(){ //去章节页
+				let data={
+					bookId:this.bookInfo.bookId,
+					bookTitle: this.bookInfo.bookTitle
+				}
 				uni.navigateTo({
-					url:"../bookChapter/bookChapter"
+					url:"../bookChapter/bookChapter"+this.$u.queryParams(data)
 				})
-			},toContent(chapterId){
+			},toContent(chapterId){ //去内容页
 				console.log('--------------')
 				console.log(chapterId)
+				let data={
+					bookId:this.bookInfo.bookId,
+					chapterId: chapterId
+				}
 				uni.navigateTo({
-					url:"../bookContent/bookContent?chapterId="+chapterId
+					url:"../bookContent/bookContent"+this.$u.queryParams(data)
 				})
 			}
 		}
@@ -276,19 +301,31 @@
 		.new-title-p-left{
 			float: left;
 			font-weight: bold;
+			margin: 0upx auto;
+			.icon{
+				float: left;
+				display: block;
+				// transform: translateY(75%);
+				// border: 1px solid red;
+			}
 		}
 		.new-title-p-right{
 			float: right;
 			color: #999d9c;
 			// margin-right: 40upx;
+			.icon{
+				float: right;
+				display: block;
+				// transform: translateY(10%);
+				// border: 1px solid red;
+			}
 		}
 		.new-title-p-right:active{
 			color: $uni-bg-color-hover;
 		}
-		.icon{
-			transform: translateY(-10%);
-			// border: 1px solid red;
-		}
+		
+
+		
 	}
 	
 	.new-sub{
