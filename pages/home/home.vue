@@ -38,6 +38,7 @@
 			<u-section title="猜你喜欢" sub-title="查看更多" :show-line="true" :right="false" :bold="true" :color="color"></u-section>
 			<booklist :booklist='list5' />
 		</view>
+		<u-divider bg-color="#f2f2f2" color="#a1a3a6" margin-top="20" margin-bottom="40" half-width="200">我也是有底线的</u-divider>
 	</view>
 </template>
 
@@ -174,7 +175,7 @@
 				}
 				api.randBookList(data).then(res => {
 					console.log(res.data.data)
-					that.list5=res.data.data
+					that.list5=that.list5.concat(res.data.data)
 					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {
 					

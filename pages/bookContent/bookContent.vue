@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="content-one">
+		<view class="content-one" >
 			<view class="one-title">{{chapterTiltle}}</view>
 			<view class="one-context" v-html="bookContext"></view>
 			<view class="one-footer">
@@ -9,7 +9,7 @@
 				<view class="one-footer-ider"></view>
 			</view>
 		</view> <!-- 最底下内容层 -->
-		<view class="content-two"></view> <!-- 中间点击层 -->
+		<view class="content-two" :style="[{height: screenHeight+'px'}]"></view> <!-- 中间点击层 -->
 		<view class="content-three"></view> <!-- 最上层设置层 -->
 		
 		<u-toast ref="uToast" />
@@ -20,6 +20,8 @@
 	export default {
 		data() {
 			return {
+				screenHeight:0, //屏幕高度
+				
 				bookId:1,
 				chapterId:1,
 				chapterTiltle:'',
@@ -32,6 +34,8 @@
 			console.log("bookId: "+this.bookId)
 			console.log("chapterId: "+this.chapterId)
 			this.sysBookChapter();
+			console.log('屏幕高度：'+uni.getSystemInfoSync().screenHeight)
+			this.screenHeight=uni.getSystemInfoSync().screenHeight;
 		},
 		methods: {
 			sysBookChapter(){
@@ -75,7 +79,10 @@
 .content-one{
 	display: block;
 	width: 100%;
-	background:url('https://s1.ax1x.com/2020/06/14/txD560.jpg') center center/100% 100% no-repeat;
+	// opacity:0.6;
+	// filter:alpha(opacity=60); /* 针对 IE8 以及更早的版本 */
+	// background:url('https://s1.ax1x.com/2020/06/14/txD560.jpg') center center/100% 100% no-repeat;
+	
 	border: 1px solid red;
 	.one-title{
 		display: block;
@@ -125,7 +132,15 @@
 	}
 }
 .content-two{
-	
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 600upx;
+	// z-index: 0;
+	opacity:0.6;
+	filter:alpha(opacity=60); /* 针对 IE8 以及更早的版本 */
+	background:url('https://s1.ax1x.com/2020/06/14/txD560.jpg') center center/100% 100% no-repeat;
+	border: 1px solid red;
 }
 .content-three{
 	

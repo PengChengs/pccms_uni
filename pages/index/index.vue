@@ -1,7 +1,7 @@
 <template>
 	<view>
 		
-		<home v-if="index === 0"/>
+		<home v-if="index === 0" ref="home" />
 		<cate v-if="index === 1"/>
 		<shop v-if="index === 3"/>
 		<user v-if="index === 4"/>
@@ -37,9 +37,10 @@
 				this.toIndex(0)
 			}
 		},
-		// onReachBottom() {
-		// 	console.log('fasdfasdfa')
-		// },
+		onReachBottom() {
+			console.log('fasdfasdfa')
+			// this.$refs.home.randBookList();
+		},
 		methods: {
 			toIndex(index){
 				// index 当前页面的索引 当点击首页的时候 链接初始化

@@ -45,7 +45,7 @@
 				menuList:[],
 				list:[],
 				pageNum: 1,
-				pageSize: 10,
+				pageSize: 50,
 				pages: 1,
 				isshow: false,
 				//加载更多 start
