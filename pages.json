@@ -43,7 +43,9 @@
         }
         ,{
             "path" : "pages/bookContent/bookContent",
-            "style" : {}
+            "style" : {
+				"enablePullDownRefresh": true
+			}
         }
     ],
 	// "tabBar": {

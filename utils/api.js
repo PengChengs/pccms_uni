@@ -10,7 +10,7 @@ exports.randBookList = (data) => { //热门的小说
     return http.get('/api/book/bk/randBookList',{params: data})
 }
 exports.mainSysMenuList = (data) => { //小说前台菜单列表
-    return http.get('/api/book/bk/mainSysMenuList',{params: data})
+    return http.get('/api/auth/sysMenu/mainSysMenuList',{params: data})
 }
 
 exports.sysBookType = (data) => { //小说类型最近更新列表，全部,用在分类小说上
