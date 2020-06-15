@@ -3,7 +3,7 @@
 		<!-- 图文列表 -->
 		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @click="bookTextBtn(information.bookId)">
 			<view class="books-img">
-				<image :src="information.bookLogo" />
+				<image :src="information.bookLogo" :lazy-load="true" />
 			</view>
 			<view class="books-text">
 				<p class="head">{{information.bookTitle}}</p>

@@ -2,7 +2,7 @@
 	<view>
 		<view class="content-one" v-for="(dataInfo,dataKey) in list" :key="dataKey" @click="isShowsConfig(dataInfo.chapterTiltle)"> <!-- 最底下内容层 -->
 			<view class="one-title">{{dataInfo.chapterTiltle}}</view>
-			<view class="one-context" v-html="dataInfo.bookContext"></view>
+			<view class="one-context" v-html="dataInfo.bookContext" :style="{color:fontColor,fontSize:fontSize+'px',lineHeight:lineHeight+'px'}"></view>
 			<view class="one-footer">
 				<view class="one-footer-ider"></view>
 				<view class="one-footer-divider">本章完</view>
@@ -10,7 +10,7 @@
 			</view>
 		</view> 
 		
-		<view class="content-two" :style="[{height: screenHeight+'px'}]">  <!-- 中间点击层 --> <!-- :style="[{height: screenHeight+'px'}]" -->
+		<view class="content-two" v-bind:style="{height: screenHeight+'px',background: 'url('+src+') center center/100% 100% no-repeat'}">  <!-- 中间点击层 --> <!-- :style="[{height: screenHeight+'px'}]" -->
 			<view class="two-down"></view>
 			<view class="two-content" ></view>
 			<view class="two-bottom"></view>
@@ -22,13 +22,26 @@
 				<view class="three-title-center">{{chapterTiltle}}</view>
 				<view class="three-title-right" @click="changeChapter('bottom')">下一章<u-icon name="arrow-right" size="28"></u-icon></view>
 			</view>
-			<view class="three-bg">
-				<view class="three-bg-list">
-					<u-avatar :src="src" mode="circle"></u-avatar>
+			
+			<scroll-view scroll-x="true" class="three-bg" >
+				<view class="three-bg-list" v-for="(dataInfo,dataKey) in bgList" :key="dataKey" :class="{'click-color': clickColor===dataKey}" @tap="changeBg(dataKey)">
+					<image class="bg-list" :src="dataInfo.src" mode="scaleToFill" :lazy-load="true" ></image>
 				</view>
+			</scroll-view>
+			
+			<view class="three-font">
+				<view class="font-left">A-</view>
+				<view class="font-center">
+					<slider value="20" @change="changeFont" min="10" max="30" block-size="30" show-value /> 
+				</view>
+				<view class="font-right">A+</view>
 			</view>
-			<view class="three-font"></view>
-			<view class="three-line"></view>
+			<view class="three-line">
+				<u-icon class="line-list" size="80" name="list"></u-icon>
+				<u-icon class="line-list" size="60" name="list"></u-icon>
+				<u-icon class="line-list" size="50" name="list"></u-icon>
+				<u-icon class="line-list" size="40" name="list"></u-icon>
+			</view>
 			<view class="three-footer"></view>
 		</view> 
 
@@ -51,13 +64,48 @@
 				//阅读配置
 				// scrollTop: 0,
 				isShow: false, //是否显示底部操作栏
+				src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg',
+				fontColor: 'black',
+				clickColor: 0, //背景list下标
 				bgList:[{
-							
+							src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg', //背景图
+							fontColor: 'black' //字体颜色
 						},
 						{
-							
+							src: 'https://s1.ax1x.com/2020/06/14/txD560.jpg',
+							fontColor: 'blue'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/16/NPUkTS.jpg',
+							fontColor: 'red'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/14/txD560.jpg',
+							fontColor: 'white'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/16/NPUkTS.jpg',
+							fontColor: 'black'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/14/txD560.jpg',
+							fontColor: 'black'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/16/NPUkTS.jpg',
+							fontColor: 'black'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/14/txD560.jpg',
+							fontColor: 'black'
+						},
+						{
+							src: 'https://s1.ax1x.com/2020/06/16/NPUkTS.jpg',
+							fontColor: 'black'
 						}],
-				src: 'https://s1.ax1x.com/2020/06/14/txD560.jpg'
+				fontSize: 20, //字体大小
+				lineHeight: 40
+				
 				
 				
 			}
@@ -134,12 +182,12 @@
 						position: 'top'
 					})
 				});
-			},isShowsConfig(chapterTiltle){
+			},isShowsConfig(chapterTiltle){ //是否显示配置栏
 				this.isShow=!this.isShow;
 				console.log(this.isShow)
 				console.log(chapterTiltle)
 				this.chapterTiltle=chapterTiltle;
-			},changeChapter(reach){
+			},changeChapter(reach){ //切换上下章节
 				if(reach==='down'){ //上一章
 					this.chapterId--;
 					this.sysBookChapter('reach');
@@ -147,6 +195,13 @@
 					this.chapterId++;
 					this.sysBookChapter('reach');
 				}
+			},changeBg(index){
+				this.src=this.bgList[index].src;
+				this.fontColor=this.bgList[index].fontColor;
+				this.clickColor=index;
+			},changeFont(e){
+				console.log('value 发生变化：' + e.detail.value)
+				this.fontSize=e.detail.value;
 			}
 		}
 	}
@@ -178,7 +233,6 @@
 		.one-context {
 			display: block;
 			width: 100%;
-			line-height: 60upx;
 			text-indent: 2em;
 			white-space: pre-line;
 			// border: 1px solid red;
@@ -226,7 +280,7 @@
 		z-index: -1;
 		// opacity:0.6;
 		// filter:alpha(opacity=60); /* 针对 IE8 以及更早的版本 */
-		background:url('https://s1.ax1x.com/2020/06/14/txD560.jpg') center center/100% 100% no-repeat;
+		// background:url('https://s1.ax1x.com/2020/06/14/txD560.jpg') center center/100% 100% no-repeat;
 		// pointer-events: auto;
 
 		// height: 600px;
@@ -253,44 +307,106 @@
 		position: fixed;
 		bottom: 0upx;
 		width: 100%;
-		height: 30%;
+		height: 40%;
 		background-color: white;
-		border: 1px solid red;
+		// border: 1px solid red;
 		.three-title{
 			display: block;
 			width: 100%;
-			height: 50upx;
-			border: 1px solid red;
+			height: 60upx;
+			// border: 1px solid red;
+			border-top: 1px solid #d3d7d4;
+			border-bottom: 1px solid #d3d7d4;
+			margin-bottom: 10upx;
 			.three-title-left{
 				float: left;
 				width: 25%;
 				height: 100%;
+				line-height: 60upx;
 				text-align: center;
-				border: 1px solid red;
+				// border: 1px solid red;
 			}
 			.three-title-center{
 				float: left;
 				width: 50%;
 				height: 100%;
 				text-align: center;
+				line-height: 60upx;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
+				
 				// text-overflow:ellipsis;
-				border: 1px solid red;
+				// border: 1px solid red;
 			}
 			.three-title-right{
 				float: right;
 				width: 25%;
 				height: 100%;
 				text-align: center;
-				border: 1px solid red;
+				line-height: 60upx;
+				// border: 1px solid red;
 			}
 		}
 		.three-bg{
-			
+			display: block;
+			white-space: nowrap; // 滚动必须加的属性
+			border: 1px solid red;
+			.three-bg-list{
+				display: inline-block;
+				width: 80upx;
+				height: 80upx;
+				border-radius:50%;
+				margin: 0upx 0upx 0upx 30upx;
+				// border: 1px solid red;
+				.bg-list{
+					display: block;
+					width: 90%;
+					height: 90%;
+					border-radius:50%;
+					margin: 0px auto;
+					// border: 1px solid red;
+					transform: translateY(5%);
+				}
+				
+			}
+			.click-color{
+				border: 2px solid #009ad6;
+			}
 		}
-		.three-font{}
+		.three-font{
+			display: block;
+			height: 80upx;
+			margin-top: 5upx;
+			border: 1px solid red;
+			.font-left{
+				display: block;
+				width: 10%;
+				height: 100%;
+				float: left;
+				text-align: center;
+				line-height: 80upx;
+				font-size: 10px;
+				// border: 1px solid red;
+			}
+			.font-center{
+				display: block;
+				width: 80%;
+				height: 100%;
+				float: left;
+				border: 1px solid red;
+			}
+			.font-right{
+				display: block;
+				width: 10%;
+				height: 100%;
+				float: left;
+				text-align: center;
+				line-height: 80upx;
+				font-size: 30px;
+				// border: 1px solid red;
+			}
+		}
 		.three-line{}
 		.three-footer{}
 	}

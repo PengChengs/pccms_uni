@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "u-back-top": "/node-modules/uview-ui/components/u-back-top/u-back-top",
-    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
-    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast"
-  }
-}
