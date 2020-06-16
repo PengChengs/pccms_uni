@@ -18,7 +18,7 @@
 		
 		<view class="content-three" v-if="isShow===true"><!-- 最上层设置层 -->
 			<view class="three-title">
-				<view class="three-title-left" @click="changeChapter('down')"><u-icon name="arrow-left" size="28"></u-icon>上一章</view>
+				<view class="three-title-left" @click="changeChapter('down')"><u-icon name="arrow-left" size="28" :custom-style="{display:'block',float:'left',width:'10%'}"></u-icon>上一章</view>
 				<view class="three-title-center">{{chapterTiltle}}</view>
 				<view class="three-title-right" @click="changeChapter('bottom')">下一章<u-icon name="arrow-right" size="28"></u-icon></view>
 			</view>
@@ -37,10 +37,11 @@
 				<view class="font-right">A+</view>
 			</view>
 			<view class="three-line">
-				<u-icon class="line-list" size="80" name="list"></u-icon>
-				<u-icon class="line-list" size="60" name="list"></u-icon>
-				<u-icon class="line-list" size="50" name="list"></u-icon>
-				<u-icon class="line-list" size="40" name="list"></u-icon>
+				<u-icon class="line-list" size="80" color="#464547" name="https://s1.ax1x.com/2020/06/16/NF7ftf.png"></u-icon>
+				<u-icon class="line-list" size="70" name="https://s1.ax1x.com/2020/06/16/NF7WAP.png"></u-icon>
+				<u-icon class="line-list" size="60" name="https://s1.ax1x.com/2020/06/16/NF7ocQ.png"></u-icon>
+				<u-icon class="line-list" size="50" name="https://s1.ax1x.com/2020/06/16/NF759S.png"></u-icon>
+				<u-icon class="line-list" size="40" name="https://s1.ax1x.com/2020/06/16/NF7hh8.png"></u-icon>
 			</view>
 			<view class="three-footer"></view>
 		</view> 
@@ -314,6 +315,7 @@
 			display: block;
 			width: 100%;
 			height: 60upx;
+			line-height: 60upx;
 			// border: 1px solid red;
 			border-top: 1px solid #d3d7d4;
 			border-bottom: 1px solid #d3d7d4;
@@ -407,7 +409,18 @@
 				// border: 1px solid red;
 			}
 		}
-		.three-line{}
+		.three-line{
+			display: inline-block;
+			width: 100%;
+			height: 80upx;
+			margin-top: 5upx;
+			border: 1px solid red;
+			.line-list{
+				display: flexbox;
+				margin-left: 70upx;
+				border: 1px solid red;
+			}
+		}
 		.three-footer{}
 	}
 </style>
