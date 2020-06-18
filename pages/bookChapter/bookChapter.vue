@@ -97,7 +97,7 @@
 							position: 'top'
 						})
 					}
-					uni.hideLoading(); //隐藏加载框
+					
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -106,6 +106,7 @@
 					})
 				});
 				this.pageNum++;
+				uni.hideLoading(); //隐藏加载框
 			},toContent(chapterId){ //去内容页
 				let data={
 					bookId:this.bookId,

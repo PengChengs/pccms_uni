@@ -125,6 +125,7 @@
 						position: 'top'
 					})
 				});
+				
 			},randBookList(){ //猜你喜欢
 				let that=this
 				let data={

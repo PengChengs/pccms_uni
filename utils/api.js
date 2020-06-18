@@ -25,3 +25,9 @@ exports.sysBookChapterList = (data) => { //根据书籍id查询章节
 exports.sysBookChapter = (data) => { //根据章节获取章节内容
     return http.get('/api/book/chapter/sysBookChapter',{params: data})
 }
+exports.downSysBookChapter = (data) => { //查看上一章
+    return http.get('/api/book/chapter/downSysBookChapter',{params: data})
+}
+exports.nextSysBookChapter = (data) => { //查看下一章
+    return http.get('/api/book/chapter/nextSysBookChapter',{params: data})
+}

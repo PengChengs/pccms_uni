@@ -146,7 +146,7 @@
 						})
 					}
 					this.status = 'loadmore'
-					uni.hideLoading(); //隐藏加载框
+					
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -155,6 +155,7 @@
 					})
 				});
 				that.pageNum++;
+				uni.hideLoading(); //隐藏加载框
 			},
 			loadmore() { //加载更多
 				this.status = 'loadmore'

@@ -8,6 +8,7 @@
 				<view class="one-footer-divider">本章完</view>
 				<view class="one-footer-ider"></view>
 			</view>
+			
 		</view> 
 		
 		<view class="content-two" v-bind:style="{height: screenHeight+'px',background: 'url('+src+') center center/100% 100% no-repeat'}">  <!-- 中间点击层 --> <!-- :style="[{height: screenHeight+'px'}]" -->
@@ -18,9 +19,9 @@
 		
 		<view class="content-three" v-if="isShow===true"><!-- 最上层设置层 -->
 			<view class="three-title">
-				<view class="three-title-left" @click="changeChapter('down')"><u-icon name="arrow-left" size="28" :custom-style="{display:'block',float:'left',width:'10%'}"></u-icon>上一章</view>
+				<view class="three-title-left" @click="changeDown('reach')"><u-icon name="arrow-left" size="28" :custom-style="{display:'block',float:'left',width:'10%'}"></u-icon>上一章</view>
 				<view class="three-title-center">{{chapterTiltle}}</view>
-				<view class="three-title-right" @click="changeChapter('bottom')">下一章<u-icon name="arrow-right" size="28"></u-icon></view>
+				<view class="three-title-right" @click="changeNext('reach')">下一章<u-icon name="arrow-right" size="28"></u-icon></view>
 			</view>
 			
 			<scroll-view scroll-x="true" class="three-bg" >
@@ -37,7 +38,7 @@
 				<view class="font-right">A+</view>
 			</view>
 			<view class="three-line">
-				<u-icon class="line-list" size="80" color="#464547" name="https://s1.ax1x.com/2020/06/16/NF7ftf.png"></u-icon>
+				<u-icon class="line-list" size="70" color="#464547" name="https://s1.ax1x.com/2020/06/16/NF7ftf.png"></u-icon>
 				<u-icon class="line-list" size="70" name="https://s1.ax1x.com/2020/06/16/NF7WAP.png"></u-icon>
 				<u-icon class="line-list" size="60" name="https://s1.ax1x.com/2020/06/16/NF7ocQ.png"></u-icon>
 				<u-icon class="line-list" size="50" name="https://s1.ax1x.com/2020/06/16/NF759S.png"></u-icon>
@@ -48,6 +49,7 @@
 
 		<u-toast ref="uToast" />
 		<!-- <u-back-top :scroll-top="scrollTop" top="500" :bottom="50"></u-back-top> -->
+		<!-- <u-loadmore class="locadmore" :status="status" icon-type="iconType" :load-text="loadText" /> -->
 	</view>
 </template>
 
@@ -61,6 +63,7 @@
 				chapterId: 1,
 				chapterTiltle: '',
 				list: [],
+				
 
 				//阅读配置
 				// scrollTop: 0,
@@ -68,7 +71,7 @@
 				src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg',
 				fontColor: 'black',
 				clickColor: 0, //背景list下标
-				bgList:[{
+				bgList:[{ 
 							src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg', //背景图
 							fontColor: 'black' //字体颜色
 						},
@@ -117,31 +120,24 @@
 			this.chapterId = option.chapterId
 			console.log("bookId: " + this.bookId)
 			console.log("chapterId: " + this.chapterId)
-			this.sysBookChapter('bottom');
+			this.sysBookChapter();
 			console.log('屏幕高度：' + uni.getSystemInfoSync().screenHeight)
 			this.screenHeight = uni.getSystemInfoSync().screenHeight;
 		},
 		onPullDownRefresh() { //下拉刷新
 			uni.startPullDownRefresh();
-			this.chapterId--;
 			console.log('下拉了')
-			this.sysBookChapter('down');
+			this.changeDown();
 			uni.stopPullDownRefresh();
 		},onReachBottom() { //上拉刷新
-
-			this.chapterId++;
 			console.log('上拉了')
-			this.sysBookChapter('bottom');
+			this.changeNext();
 		},
 		onPageScroll(e) {
 			// this.scrollTop = e.scrollTop;
 		},
 		methods: {
-			sysBookChapter(short) { //Down 为拼接上一章 ，bottom为拼接下一章
-				uni.showLoading({
-					title: '加载中',
-					mask: true
-				});
+			sysBookChapter() {
 				let that = this
 				let data = {
 					bookId: that.bookId,
@@ -157,50 +153,129 @@
 
 						let bookList = [];
 						bookList.push(book);
-
-						if (short === 'down') { //拼接上一章
-							let bookDown = this.list;
-							this.list = bookList.concat(bookDown)
-						} else if(short === 'bottom') { //拼接下一章
-							this.list = this.list.concat(bookList)
-						}else{ //reach 重新给list赋值   
-							this.list = bookList;
-							console.log(this.list)
-						}
-						console.log(book)
+						this.list = bookList;
 					} else {
 						this.$refs.uToast.show({
-							title: '网络错误1',
+							title: '网络错误',
 							type: 'error',
 							position: 'top'
 						})
 					}
-					uni.hideLoading(); //隐藏加载框
+					
 				}).catch(err => {
 					this.$refs.uToast.show({
-						title: '网络错误2',
+						title: '网络错误',
 						type: 'error',
 						position: 'top'
 					})
 				});
+				
 			},isShowsConfig(chapterTiltle){ //是否显示配置栏
 				this.isShow=!this.isShow;
 				console.log(this.isShow)
 				console.log(chapterTiltle)
 				this.chapterTiltle=chapterTiltle;
-			},changeChapter(reach){ //切换上下章节
-				if(reach==='down'){ //上一章
-					this.chapterId--;
-					this.sysBookChapter('reach');
-				}else{ //下一章
-					this.chapterId++;
-					this.sysBookChapter('reach');
+			},changeDown(reach){ //上一章
+				
+				let that = this
+				let data = {
+					bookId: that.bookId,
+					chapterId: that.chapterId
 				}
-			},changeBg(index){
+				this.$api.downSysBookChapter(data).then(res => {
+					if (res.data.status === 200) {
+						if(null==res.data.data){
+							this.$refs.uToast.show({
+								title: '已是第一章',
+								type: 'warning',
+								position: 'top'
+							})
+						}else{
+							that.chapterTiltle=res.data.data.chapterTiltle
+							that.chapterId=res.data.data.chapterId
+							let book = {};
+							book.chapterTiltle = res.data.data.chapterTiltle
+							book.bookContext = res.data.data.bookContext.replace(/\s/g, "<br>&emsp;&emsp;");
+							let bookList = [];
+							bookList.push(book);
+
+							if(reach==='reach'){ //配置栏的上一章点击
+								this.list = bookList;
+							}else{ //页面上拉的上一章
+								let bookDown = this.list;
+								this.list = bookList.concat(bookDown)
+							}
+						}
+					} else {
+						this.$refs.uToast.show({
+							title: res.data.msg,
+							type: 'error',
+							position: 'top'
+						})
+					}
+					
+				}).catch(err => {
+					this.$refs.uToast.show({
+						title: '网络错误',
+						type: 'error',
+						position: 'top'
+					})
+				});
+				
+			},changeNext(reach){ //下一章
+				
+				let that = this
+				let data = {
+					bookId: that.bookId,
+					chapterId: that.chapterId
+				}
+				this.$api.nextSysBookChapter(data).then(res => {
+					console.log(res.data)
+					console.log(res.data.data)
+					if (res.data.status === 200 ) {
+						if(null==res.data.data){
+							this.$refs.uToast.show({
+								title: '已是最后一章',
+								type: 'warning',
+								position: 'top'
+							})
+						}else{
+							that.chapterId=res.data.data.chapterId
+							that.chapterTiltle=res.data.data.chapterTiltle
+							let book = {};
+							book.chapterTiltle = res.data.data.chapterTiltle
+							book.bookContext = res.data.data.bookContext.replace(/\s/g, "<br>&emsp;&emsp;");
+											
+							let bookList = [];
+							bookList.push(book);
+							if(reach==='reach'){ //配置栏的下一章点击
+								this.list = bookList;
+							}else{ //页面下拉的下一章
+								this.list = this.list.concat(bookList)
+							}
+						}
+					} else {
+						this.$refs.uToast.show({
+							title: res.data.msg,
+							type: 'warning',
+							position: 'top'
+						})
+					}
+					
+				}).catch(err => {
+					console.log(err)
+					this.$refs.uToast.show({
+						title: '网络错误',
+						type: 'error',
+						position: 'top'
+					})
+				});
+				
+			},changeBg(index){ //改变背景图
 				this.src=this.bgList[index].src;
 				this.fontColor=this.bgList[index].fontColor;
 				this.clickColor=index;
-			},changeFont(e){
+			},changeFont(e){ //改变字体
 				console.log('value 发生变化：' + e.detail.value)
 				this.fontSize=e.detail.value;
 			}
@@ -396,7 +471,7 @@
 				width: 80%;
 				height: 100%;
 				float: left;
-				border: 1px solid red;
+				// border: 1px solid red;
 			}
 			.font-right{
 				display: block;
@@ -416,11 +491,15 @@
 			margin-top: 5upx;
 			border: 1px solid red;
 			.line-list{
-				display: flexbox;
+				display: block;
+				width: 10%;
+				float: left;
+				bottom: 0upx;
 				margin-left: 70upx;
 				border: 1px solid red;
 			}
 		}
 		.three-footer{}
 	}
+
 </style>
