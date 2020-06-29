@@ -120,7 +120,10 @@
 					mask: true
 				});
 				let that=this
-				if (that.bookType!==bookType) {
+				let bookTypeOld=that.bookType;
+				that.bookType=bookType
+				if (bookTypeOld!==bookType) {
+					
 					that.pageNum=1
 				}
 				let data={
@@ -128,14 +131,14 @@
 					pageNum: that.pageNum,
 					pageSize: that.pageSize
 				}
+				
 				this.$api.sysBookType(data).then(res => {
 					if(res.data.status === 200){
 						that.pages=res.data.data.pages;
-						if (that.bookType===bookType) {
+						if (bookTypeOld===bookType) {
 							that.list=that.list.concat(res.data.data.list)
 						} else{
 							that.list=res.data.data.list
-							that.bookType=bookType
 						}
 						
 					}else{
@@ -157,6 +160,10 @@
 				that.pageNum++;
 				uni.hideLoading(); //隐藏加载框
 			},
+			// changeType(bookType){
+			// 	this.bookType=bookType
+			// 	this.bookList(bookType)
+			// },
 			loadmore() { //加载更多
 				this.status = 'loadmore'
 				if(this.pageNum<=this.pages){
@@ -231,12 +238,12 @@
 	border-radius: 30upx;
 	border: 1px solid #71d5a1;
 }
-.types:active{
-	color: white;
-	border-radius: 30upx;
-	background-color: #71d5a1;
-	border: 1px solid #71d5a1;
-}
+// .types:active{
+// 	color: white;
+// 	border-radius: 30upx;
+// 	background-color: #71d5a1;
+// 	border: 1px solid #71d5a1;
+// }
 .booklist-content{
 	padding: 20upx 40upx 30upx 40upx;
 	

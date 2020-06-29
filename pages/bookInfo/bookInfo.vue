@@ -288,8 +288,8 @@
 	.new-title{
 		display: block;
 		width: 100%;
-		padding: 0upx 25upx 0upx 40upx;
-		float: left;
+		// padding: 0upx 25upx 0upx 40upx;
+		// float: left;
 		height: 80upx;
 		border-bottom: 1px solid #f2f2f2;
 		// margin-left: 40upx;
@@ -302,7 +302,7 @@
 		.new-title-p-left{
 			float: left;
 			font-weight: bold;
-			margin: 0upx auto;
+			margin-left: 10upx;
 			.icon{
 				float: left;
 				display: block;
@@ -313,7 +313,7 @@
 		.new-title-p-right{
 			float: right;
 			color: #999d9c;
-			// margin-right: 40upx;
+			margin-right: 20upx;
 			.icon{
 				float: right;
 				display: block;

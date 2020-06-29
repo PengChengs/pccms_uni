@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 图文列表 -->
-		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @click="bookTextBtn(information.bookId)">
+		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @tap="bookTextBtn(information.bookId)">
 			<view class="books-img">
 				<image :src="information.bookLogo" :lazy-load="true" />
 			</view>

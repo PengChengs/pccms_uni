@@ -95,6 +95,7 @@
                 //摇树优化
                 "enable" : true
             }
-        }
+        },
+        "domain" : "ali.chengit.cn"
     }
 }

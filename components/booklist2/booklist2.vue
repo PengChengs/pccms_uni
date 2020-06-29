@@ -1,11 +1,11 @@
 <template>
 	<view class="list2">
 		<!-- 图文列表 -->
-		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @click="bookTextBtn(information.bookId)">
+		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @tap="bookTextBtn(information.bookId)">
 			<view class="books-img">
 				<image :src="information.bookLogo" mode="scaleToFill" />
 			</view>
-			<view class="books-text">
+			<!-- <view class="books-text"> -->
 				<!-- <p class="head">{{information.bookTitle}}</p> -->
 				<!--<view class="title-box">
 					<p class="title">作者: {{ information.bookAuthor}}</p>
@@ -13,7 +13,7 @@
 					<p class="title">章节数: {{ information.bookNewChapters}}章 | {{information.bookStatus == 0 ? '连载中' : '已完结'}}</p>
 					<p class="title">更新时间: {{ information.bookUpdateTime}}</p> 
 				</view>-->
-			</view>
+			<!-- </view> -->
 		</view>
 	
 	</view>
@@ -48,8 +48,8 @@
 .books {
 	display: block;
 	float: left;
-	width: 31%;
-	height: 270upx;
+	width: 28%;
+	height: 250upx;
 	margin: 20upx 0upx 10upx 10upx;
 	padding: 10upx;
 	background-color: #ffffff;
@@ -58,6 +58,7 @@
 	animation: fade-in;/*动画名称*/
 	animation-duration: 1.5s;/*动画持续时间*/  
 	-webkit-animation:fade-in 1.5s;/*针对webkit内核*/ 
+	// border: 1px solid red;
 
 }
 	@keyframes fade-in {  
@@ -74,6 +75,7 @@
 .books-img image {
 	width: 100%;
 	height: 250upx;
+	// transform: translateY(2%);/* 元素往下位移自身高度5%的距离 */
 	background-color: $skeletonColor;
 	border-radius: 10upx;
 }

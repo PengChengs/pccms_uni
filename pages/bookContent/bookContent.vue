@@ -18,6 +18,10 @@
 		</view>
 		
 		<view class="content-three" v-if="isShow===true"><!-- 最上层设置层 -->
+			<view class="three-enshrine" v-if="isBall">加书架</view>
+			<view class="three-enshrine" v-else>已加入书架</view>
+			<view class="clear-box"></view>
+			
 			<view class="three-title">
 				<view class="three-title-left" @click="changeDown('reach')"><u-icon name="arrow-left" size="28" :custom-style="{display:'block',float:'left',width:'10%'}"></u-icon>上一章</view>
 				<view class="three-title-center">{{chapterTiltle}}</view>
@@ -38,13 +42,18 @@
 				<view class="font-right">A+</view>
 			</view>
 			<view class="three-line">
-				<u-icon class="line-list" size="70" color="#464547" name="https://s1.ax1x.com/2020/06/16/NF7ftf.png"></u-icon>
-				<u-icon class="line-list" size="70" name="https://s1.ax1x.com/2020/06/16/NF7WAP.png"></u-icon>
-				<u-icon class="line-list" size="60" name="https://s1.ax1x.com/2020/06/16/NF7ocQ.png"></u-icon>
-				<u-icon class="line-list" size="50" name="https://s1.ax1x.com/2020/06/16/NF759S.png"></u-icon>
-				<u-icon class="line-list" size="40" name="https://s1.ax1x.com/2020/06/16/NF7hh8.png"></u-icon>
+				<image src="https://s1.ax1x.com/2020/06/16/NF7ftf.png"></image>
+				<view class="line-center">
+					<slider value="30" @change="changeLine" min="20" max="70" block-size="30" show-value /> 
+				</view>
+				<image src="https://s1.ax1x.com/2020/06/16/NF7hh8.png"></image>
 			</view>
-			<view class="three-footer"></view>
+			<view class="three-footer">
+				<view class="footer-list"><image src="https://imgchr.com/i/NJYCUP"></image>返回首页</view>
+				<view class="footer-list"><image src="https://imgchr.com/i/NJYSHI"></image>前往目录</view>
+				<view class="footer-list"><image src="https://imgchr.com/i/NJYP4f"></image>前往封面</view>
+				<view class="footer-list"><image src="https://imgchr.com/i/NJY9Et"></image>加入收藏夹</view>
+			</view>
 		</view> 
 
 		<u-toast ref="uToast" />
@@ -68,8 +77,9 @@
 				//阅读配置
 				// scrollTop: 0,
 				isShow: false, //是否显示底部操作栏
-				src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg',
-				fontColor: 'black',
+				isBall: false, //是否加入书架,默认未加入
+				src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg', //默认背景图
+				fontColor: 'black', //默认字体颜色
 				clickColor: 0, //背景list下标
 				bgList:[{ 
 							src: 'https://s1.ax1x.com/2020/06/15/NP1jv8.jpg', //背景图
@@ -278,6 +288,9 @@
 			},changeFont(e){ //改变字体
 				console.log('value 发生变化：' + e.detail.value)
 				this.fontSize=e.detail.value;
+			},changeLine(e){ //改变字体间隔
+				console.log('value 发生变化：' + e.detail.value)
+				this.lineHeight=e.detail.value;
 			}
 		}
 	}
@@ -383,9 +396,25 @@
 		position: fixed;
 		bottom: 0upx;
 		width: 100%;
-		height: 40%;
+		height: 35%;
 		background-color: white;
 		// border: 1px solid red;
+		.three-enshrine{
+			display: block;
+			width: 120upx;
+			float: right;
+			height: 120upx;
+			border-radius: 50%;
+			font-size: 10upx;
+			color: white;
+			line-height: 120upx;
+			text-align: center;
+			background: radial-gradient(circle at 100px 100px, #5cabff, #2979ff);
+			// transform: rotateX(90deg) translateZ(-150px);
+			margin: -160upx 40upx 0upx 0upx;
+			box-shadow: 0 12px 24px rgba(0, 0.1, 0.2, 0.3); //; 5upx 2upx 8upx #656B79
+			// border: 1px solid red;
+		}
 		.three-title{
 			display: block;
 			width: 100%;
@@ -490,16 +519,37 @@
 			height: 80upx;
 			margin-top: 5upx;
 			border: 1px solid red;
-			.line-list{
+			image{
 				display: block;
-				width: 10%;
+				width: 8%;
+				height: 70%;
 				float: left;
-				bottom: 0upx;
-				margin-left: 70upx;
-				border: 1px solid red;
+				margin: 0upx auto;
+				// bottom: 0upx;
+				margin-left: 10upx;
+				transform: translateY(10%);
+				// border: 1px solid red;
+			}
+			.line-center{
+				display: block;
+				width: 80%;
+				height: 100%;
+				float: left;
+				// border: 1px solid red;
 			}
 		}
-		.three-footer{}
+		.three-footer{
+			width: 100%;
+			display: inline-block;
+			height: 200upx;
+			margin-top: 5upx;
+			border: 1px solid red;
+			.footer-list{
+				display: block;
+				width: 20%;
+				height: 200upx;
+			}
+		}
 	}
 
 </style>
