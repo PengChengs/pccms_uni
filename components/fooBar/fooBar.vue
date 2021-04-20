@@ -99,7 +99,7 @@
 		height: $navHeight;
 		box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.06);
 		background: #fff;
-		z-index: 10;
+		z-index: 999;
 	}
 
 	.nav-tab {

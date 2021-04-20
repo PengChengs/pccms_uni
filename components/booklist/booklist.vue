@@ -3,6 +3,7 @@
 		<!-- 图文列表 -->
 		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @tap="bookTextBtn(information.bookId)">
 			<view class="books-img">
+				<view class="books-btn">小说</view>
 				<image :src="information.bookLogo" :lazy-load="true" />
 			</view>
 			<view class="books-text">
@@ -66,8 +67,25 @@
 	    40% {opacity: 0;}  
 	    100% {opacity: 1;}  
 	} 
-
+	.books{
+		position: relative;
+	}
+	.books-btn{
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		border-radius: 5px;
+		font-size: 9px;
+		width: 33px;
+		height: 19px;
+		text-align: center;
+		// z-index: 1;
+		background: rgb(0, 198, 87);
+		color: rgb(255, 255, 255);
+		// box-shadow: rgb(0 198 87 / 30%) 0px 4px 17px -4px;
+	}
 	.books-img image {
+		
 		width: 160upx;
 		height: 212upx;
 		background-color: $skeletonColor;

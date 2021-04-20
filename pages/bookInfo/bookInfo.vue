@@ -359,15 +359,15 @@
 }
 .book-rand{
 	margin-top: 20upx;
-	padding: 0upx 0upx 30upx 0upx;
+	padding: 0upx 30upx 30upx 30upx;
 	background-color: white;
 	font:32upx Microsoft Yahei;
 	font-weight: bold;
-	line-height: 50upx;
+	// line-height: 50upx;
 	// border: 1px solid red;
 	.rand-title{
 		display: block;
-		width: 90%;
+		width: 100%;
 		float: left;
 		margin: 20upx 0upx 0upx 10upx;
 		// border: 1px solid red;

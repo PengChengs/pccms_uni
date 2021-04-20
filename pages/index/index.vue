@@ -39,7 +39,7 @@
 		},
 		onReachBottom() {
 			console.log('fasdfasdfa')
-			// this.$refs.home.randBookList();
+			this.$refs.home.randBookList();
 		},
 		methods: {
 			toIndex(index){

@@ -1,17 +1,44 @@
 <template>
 	<view class="page">
-		<!-- 通知 -->
-		<view class="cont">
-			<u-notice-bar mode="horizontal" :speed="80" :is-circular="true" :more-icon="true" :list="list" @click="notice"></u-notice-bar>
+		<view class="home-header">
+			<!-- 通知 -->
+			<view class="cont">
+				<u-notice-bar mode="horizontal" type="primary" :speed="80" :is-circular="true" :more-icon="true" :list="list" @click="notice"></u-notice-bar>
+			</view>
+			<!-- 搜索框 -->
+			<view class="search-page">
+				<u-search placeholder="日照香炉生紫烟" :show-action="false" :clearabled="true"></u-search>
+			</view>
+			<!-- 轮播图 -->
+			<view class="wrap">
+					<u-swiper mode="round" :interval="3000" :effect3d="false" :title="true" :list="list2" @click="swiperClick"></u-swiper>
+			</view>
 		</view>
 		
-		<!-- 轮播图 -->
-		<view class="wrap">
-				<u-swiper mode="round" :interval="3000" :effect3d="true" :title="true" :list="list2" @click="swiperClick"></u-swiper>
-		</view>
 		
+		<view class="integal-mall-menu">
+			<view class="col2"  data-link="/pages/client/tuan/ss?selectIndex=1">
+				<view>
+					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
+				</view>
+				<view class="ft14">精品小说</view>
+			</view>
+			<view class="col2 bd-left"    data-link="/pages/client/tuan/ss?selectIndex=2">
+				<view>
+					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
+				</view>
+				<view class="ft14 ftw600 mt6">热门视频</view>
+			</view>
+			<view class="col2 bd-left"  data-link="/pages/client/tuan/ss?selectIndex=3">
+				<view>
+					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
+				</view>
+				<view class="ft14 ftw600 mt6">精彩漫画</view>
+			</view>
+			
+		</view>
 		<!-- 首页导航 -->
-		<view class="function">
+		<!-- <view class="function">
 			<view class="select" v-for="(selectDatas,selectKey) in selectData" :key="selectKey">
 				<view @click="selectBtn(selectKey)">
 					<view class="select-img" :class="{}">
@@ -20,7 +47,7 @@
 					<text>{{selectDatas.text}}</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
 		<!-- 推荐 -->
 		<view class="hot">
@@ -188,6 +215,17 @@
 
 <style lang="scss" scoped>
 
+.home-header{
+	display: block;
+	height: 150px;
+	width: 100%;
+	margin-bottom: 120px;
+	-webkit-border-radius: 0px 0px 26px 26px;
+	border-radius: 0px 0px 26px 26px;
+	background: #0086E7;
+
+}
+
 .cont{
 	padding: 20upx 40upx 0upx 40upx;
 	/* width: 100vw; */
@@ -195,6 +233,9 @@
 	/* display: flex; */
 	/* justify-content: center;
 	align-items: center; */
+}
+.search-page{
+	padding: 11px 22px 0px 22px;
 }
 .wrap {
 	padding: 20upx 40upx 20upx 40upx;
@@ -204,6 +245,31 @@
 	padding: 20upx 0 36upx 0;
 	display: flex;
 }
+
+.integal-mall-menu{
+		width: 90%;
+		margin-left: 5%;
+		margin-bottom: 20px;
+		height: 176rpx;
+		background: #FFFFFF;
+		border-radius: 48rpx;
+		
+		display: flex;
+		padding-bottom: 17px;
+		padding-top: 17px;
+	}
+	.col2{
+		width: 50%;
+		text-align: center;
+	}
+	.bd-left{
+		border-left: 1px solid rgba(230, 230, 230, 0.8);
+	}
+	.ft14{
+		font-size: 15px;
+		font-weight: 600;
+		margin-top: 6px;
+	}
 
 .select {
 	flex: 1;

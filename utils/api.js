@@ -1,5 +1,10 @@
 import { http } from '@/utils/service.js' // 局部引入
 
+exports.mainSysMenuList = (data) => { //前台菜单列表 菜单类型（1.菜单 2.按钮 3.小说 4.视频 5.漫画）这里主要用在 3 4 5
+    return http.get('/api/auth/sysMenu/mainSysMenuList',{params: data})
+}
+
+
 exports.bookRecommendList = (data) => { //强力推荐的小说
     return http.get('/api/book/bk/bookRecommendList',{params: data})
 }
@@ -8,9 +13,6 @@ exports.bookHotList = (data) => { //热门的小说
 }
 exports.randBookList = (data) => { //热门的小说
     return http.get('/api/book/bk/randBookList',{params: data})
-}
-exports.mainSysMenuList = (data) => { //小说前台菜单列表
-    return http.get('/api/auth/sysMenu/mainSysMenuList',{params: data})
 }
 
 exports.sysBookType = (data) => { //小说类型最近更新列表，全部,用在分类小说上

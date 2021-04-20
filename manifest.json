@@ -77,7 +77,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    "target" : "https://cms.chengit.cn",
+                    "target" : "http://localhost:8200",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
@@ -95,7 +95,6 @@
                 //摇树优化
                 "enable" : true
             }
-        },
-        "domain" : "ali.chengit.cn"
+        }
     }
 }
