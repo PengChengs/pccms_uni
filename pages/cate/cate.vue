@@ -1,10 +1,7 @@
 <template>
 	<view class="u-wrap">
 		<view class="u-search-box">
-			<view class="u-search-inner">
-				<u-icon name="search" color="#909399" :size="28"></u-icon>
-				<text class="u-search-text">搜索</text>
-			</view>
+			<u-search placeholder="请输入关键字" :show-action="false" :clearabled="true"  @focus="toSearch()"></u-search>
 		</view>
 		<view class="u-menu-wrap">
 			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view" :scroll-top="scrollTop"
@@ -63,6 +60,11 @@
 			this.getMenuItemTop()
 		},
 		methods:{ 
+			toSearch() { //跳转搜索页
+				uni.navigateTo({
+					url: '../../pages/search/search'
+				});
+			},
 		async classifyList(){ //初始化
 			let that=this
 			let data1={

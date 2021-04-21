@@ -4,7 +4,7 @@
 		<view class="books" v-for="(information,dataKey) in booklist" :key="dataKey" @tap="bookTextBtn(information.bookId)">
 			<view class="books-img">
 				<view class="books-btn">小说</view>
-				<image :src="information.bookLogo" mode="scaleToFill" />
+				<image :src="'https://z3.ax1x.com/2021/04/21/cbPBX4.jpg'" mode="scaleToFill" />
 			</view>
 			<!-- <view class="books-text"> -->
 				<!-- <p class="head">{{information.bookTitle}}</p> -->
@@ -12,11 +12,11 @@
 					<p class="title">作者: {{ information.bookAuthor}}</p>
 					 <p class="title">最新章节: {{ information.bookAuthor}}</p>
 					<p class="title">章节数: {{ information.bookNewChapters}}章 | {{information.bookStatus == 0 ? '连载中' : '已完结'}}</p>
-					<p class="title">更新时间: {{ information.bookUpdateTime}}</p> 
+					<p class="title">更新时间: {{ information.bookUpdateTime}}</p>
 				</view>-->
 			<!-- </view> -->
 		</view>
-	
+
 	</view>
 </template>
 
@@ -57,21 +57,21 @@
 	border-radius: 10upx;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); //; 5upx 2upx 8upx #656B79
 	animation: fade-in;/*动画名称*/
-	animation-duration: 1.5s;/*动画持续时间*/  
-	-webkit-animation:fade-in 1.5s;/*针对webkit内核*/ 
+	animation-duration: 1.5s;/*动画持续时间*/
+	-webkit-animation:fade-in 1.5s;/*针对webkit内核*/
 	// border: 1px solid red;
 
 }
-	@keyframes fade-in {  
-	    0% {opacity: 0;}/*初始状态 透明度为0*/  
-	    40% {opacity: 0;}/*过渡状态 透明度为0*/  
-	    100% {opacity: 1;}/*结束状态 透明度为1*/  
-	}  
-	@-webkit-keyframes fade-in {/*针对webkit内核*/  
-	    0% {opacity: 0;}  
-	    40% {opacity: 0;}  
-	    100% {opacity: 1;}  
-	} 
+	@keyframes fade-in {
+	    0% {opacity: 0;}/*初始状态 透明度为0*/
+	    40% {opacity: 0;}/*过渡状态 透明度为0*/
+	    100% {opacity: 1;}/*结束状态 透明度为1*/
+	}
+	@-webkit-keyframes fade-in {/*针对webkit内核*/
+	    0% {opacity: 0;}
+	    40% {opacity: 0;}
+	    100% {opacity: 1;}
+	}
 .books{
 		position: relative;
 	}
@@ -83,8 +83,9 @@
 		font-size: 9px;
 		width: 33px;
 		height: 19px;
+		line-height: 19px;
 		text-align: center;
-		z-index: 999;
+		z-index: 99;
 		background: rgb(0, 198, 87);
 		color: rgb(255, 255, 255);
 		// box-shadow: rgb(0 198 87 / 30%) 0px 4px 17px -4px;

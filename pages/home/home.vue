@@ -7,7 +7,7 @@
 			</view>
 			<!-- 搜索框 -->
 			<view class="search-page">
-				<u-search placeholder="日照香炉生紫烟" :show-action="false" :clearabled="true"></u-search>
+				<u-search placeholder="请输入关键字" :show-action="false" :clearabled="true" @focus="toSearch()"></u-search>
 			</view>
 			<!-- 轮播图 -->
 			<view class="wrap">
@@ -157,6 +157,12 @@
 			
 		},
 		methods: {
+			toSearch() { //跳转搜索页
+				console.log("fasdfadfadfadsfadfasdfsdfsdfdfsfsaf");
+				uni.navigateTo({
+					url: '../../pages/search/search'
+				});
+			},
 			notice(){ //通知栏点击事件
 				console.log(this.data.list2)
 			},
