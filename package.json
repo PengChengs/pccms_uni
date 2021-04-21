@@ -1,0 +1,24 @@
+{
+  "name": "pccms_uni",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PengChengs/pccms_uni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PengChengs/pccms_uni/issues"
+  },
+  "homepage": "https://github.com/PengChengs/pccms_uni#readme",
+  "dependencies": {
+    "luch-request": "^3.0.5",
+    "uview-ui": "^1.8.4"
+  }
+}

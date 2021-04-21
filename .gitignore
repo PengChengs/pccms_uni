@@ -1,4 +1,5 @@
 .idea
+.git
 .hbuilderx
 node_modules
 *.iml
