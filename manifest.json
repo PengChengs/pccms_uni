@@ -73,7 +73,7 @@
     },
     "h5" : {
         "devServer" : {
-            "port" : 8000, //端口号
+            "port" : 8001, //端口号
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {

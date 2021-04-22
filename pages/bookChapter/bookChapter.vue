@@ -8,17 +8,17 @@
 			<view class="head head-left">降序</view>
 			<view class="head head-right" @click="changeSort()"><image src="https://s1.ax1x.com/2020/06/14/txtlt0.png"></image></view>
 		</view>
-		
+
 		<view class="chapter-list" >
 			<view class="chapter-list-p" v-for="(information,dataKey) in chapterList" :key="dataKey" @click="toContent(information.chapterId)">
 				{{information.chapterTiltle}}
 			</view>
 		</view>
-		
+
 		<u-back-top :scroll-top="scrollTop" top="500" :bottom="50"></u-back-top>
-		<u-loadmore :status="status" :icon-type="iconType" :load-text="loadText" bg-color="#f2f2f2" @loadmore="loadmore"/>
+		<u-loadmore :style="{display:'block'}" :status="status" :icon-type="iconType" :load-text="loadText" bg-color="#f2f2f2" @loadmore="loadmore"/>
 		<u-toast ref="uToast" />
-		
+
 		<view class="clear-box"></view>
 	</view>
 </template>
@@ -62,7 +62,7 @@
 			this.sysBookChapterList();
 		},onReachBottom(){
 			this.loadmore();
-			
+
 		},onPageScroll(e) {
 		this.scrollTop = e.scrollTop;
 		},
@@ -97,7 +97,7 @@
 							position: 'top'
 						})
 					}
-					
+
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -113,7 +113,8 @@
 					chapterId: chapterId
 				}
 				uni.navigateTo({
-					url:"../bookContent/bookContent"+this.$u.queryParams(data)
+					// url:"../bookContent/bookContent?"+this.$u.queryParams(data)
+					url:"../bookContent/bookContext?id="+this.bookId+"&mid="+chapterId
 				})
 			},
 			loadmore() { //加载更多

@@ -1,6 +1,6 @@
 <template>
 	<view class="Subject">
-		
+
 		<view class="book-info">
 			<view class="img-bg" :style="{background: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('+bookInfo.bookLogo+') center  center/100% 180% no-repeat '}">
 				<view class="book book-img"><image :src="bookInfo.bookLogo" mode="scaleToFill"></image></view>
@@ -22,12 +22,12 @@
 		</view>
 		<view class="book-new">
 			<view class="new-title">
-				<view class="new-title-p new-title-p-left"><u-icon class="icon" label-pos="left" name="list-dot"></u-icon></view>
-				<view class="new-title-p new-title-p-left">目录</view>
-				<view class="new-title-p new-title-p-right" @click="toChapter()">查看更多<u-icon class="icon" label-pos="right" name="arrow-right"></u-icon></view>
+				<view class="new-title-p new-title-p-left"></view>
+				<view class="new-title-p new-title-p-left">最新章节</view>
+				<view class="new-title-p new-title-p-right" @click="toChapter()">查看更多</view>
 			</view>
 			<view class="new-sub">
-				<view class="new-sub-list"  v-for="(information,dataKey) in chapterList" :key="dataKey" @click="toContent(information.chapterId)"> 
+				<view class="new-sub-list"  v-for="(information,dataKey) in chapterList" :key="dataKey" @click="toContent(information.chapterId)">
 				<!-- v-bind:class="[ (dataKey+1)%2==0 ?'b':'a']" -->
 					{{information.chapterTiltle}}
 				</view>
@@ -43,7 +43,7 @@
 			<view class="sticky-box sticky-left">加入书架</view>
 			<view class="sticky-box sticky-right" @click="toChapter()">开始阅读</view>
 		</view>
-		
+
 		<u-toast ref="uToast" />
 		<view class="clear-box"></view>
 	</view>
@@ -90,7 +90,7 @@
 							position: 'top'
 						})
 					}
-					
+
 				}).catch(err => {
 					this.$refs.uToast.show({
 						title: '网络错误',
@@ -103,6 +103,7 @@
 				let that=this
 				let data={
 					bookId: that.bookId,
+					pageNum: 1,
 					pageSize: 10,
 					sort: 'desc'
 				}
@@ -125,7 +126,7 @@
 						position: 'top'
 					})
 				});
-				
+
 			},randBookList(){ //猜你喜欢
 				let that=this
 				let data={
@@ -165,7 +166,8 @@
 					chapterId: chapterId
 				}
 				uni.navigateTo({
-					url:"../bookContent/bookContent"+this.$u.queryParams(data)
+					url:"../bookContent/bookContext?id="+this.bookInfo.bookId+"&mid="+chapterId
+					// url:"../bookContent/bookContent"+this.$u.queryParams(data)
 				})
 			}
 		}
@@ -203,7 +205,7 @@
 			box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.6);
 			// box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.5);
 			// border: 1px solid red;
-			
+
 		}
 		.book-title {
 			margin: 90upx 0upx 50upx 30upx;
@@ -223,12 +225,12 @@
 					-webkit-line-clamp: 2; //行数
 					-webkit-box-orient: vertical;
 				}
-				
+
 			}
 		}
-		
+
 	}
-	
+
 }
 .book-img image{
 	display: block;
@@ -257,7 +259,7 @@
 		// margin: 0upx 40upx 0upx 40upx;
 		// text-align: center;
 		line-height: 100upx;
-		
+
 		font:50upx Microsoft Yahei;
 		// font-weight:bold;
 		color: #8a8c8e;
@@ -283,7 +285,7 @@
 	margin-top: 20upx;
 	background-color: white;
 	font:32upx Microsoft Yahei;
-	
+
 	// border: 1px solid red;
 	.new-title{
 		display: block;
@@ -324,17 +326,17 @@
 		.new-title-p-right:active{
 			color: $uni-bg-color-hover;
 		}
-		
 
-		
+
+
 	}
-	
+
 	.new-sub{
 		display: block;
 		width: 90%;
 		float: left;
 		margin-left: 8%;
-		
+
 		.new-sub-list{
 			display: block;
 			width: 100%;
@@ -388,6 +390,7 @@
 	// margin-top: 20upx;
 	position: sticky;
 	bottom: 0upx;
+	z-index: 999;
 	// border: 1px solid red;
 	.sticky-box {
 		display: block;

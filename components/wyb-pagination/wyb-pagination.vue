@@ -7,13 +7,13 @@
 			<view
 			 v-if="showFirst"
 			 :class="'wyb-pagination-first-page-' + (showIcon ? 'i' : 't')"
-			 :style="btnStyleStr" 
+			 :style="btnStyleStr"
 			 :hover-class="currentPage === 1 ? '' : 'wyb-pagination-hover'"
 			 @tap="onPageBtnTap('first-page')">
 				<view v-if="showIcon" class="iconfont icon-shuangjiantou left-arrow" />
 				<text v-else>{{firstText}}</text>
 			</view>
-			<view 
+			<view
 			 :class="'wyb-pagination-prev-page-' + (showIcon ? 'i' : 't')"
 			 :style="btnStyleStr"
 			 :hover-class="currentPage === 1 ? '' : 'wyb-pagination-hover'"
@@ -27,7 +27,7 @@
 				<text :style="{color: currentColor}">{{currentPage}}</text>
 				<text class="wyb-pagination-span" :style="{color: pageInfoColor}">/</text>
 				<text :style="{color: pageInfoColor}">{{totalPage}}</text>
-				<text 
+				<text
 				 v-if="showTotalItem"
 				 class="wyb-pagination-info-total"
 				 :style="{color: RGBChange(pageInfoColor, 0.5, 'light')}">
@@ -36,28 +36,28 @@
 			</view>
 			<!-- #ifndef MP-WEIXIN || APP-VUE || APP-NVUE || APP-PLUS || APP-PLUS-NVUE -->
 			<view class="wyb-pagination-input" v-else>
-				<input 
-				 type="number" 
-				 v-model="inputPage" 
+				<input
+				 type="number"
+				 v-model="inputPage"
 				 :onpaste="false"
-				 :focus="infoFocus" 
+				 :focus="infoFocus"
 				 :value="currentPage"
 				 :style="{color: currentColor}"
 				 :cursor-spacing="cursorSpacing"
-				 @confirm="onInfoConfirm" 
+				 @confirm="onInfoConfirm"
 				 @blur="onInfoBlur" />
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN || APP-VUE || APP-NVUE || APP-PLUS || APP-PLUS-NVUE -->
 			<view class="wyb-pagination-input" v-else>
-				<input 
-				 type="number" 
-				 v-model="inputPage" 
-				 :focus="infoFocus" 
+				<input
+				 type="number"
+				 v-model="inputPage"
+				 :focus="infoFocus"
 				 :name="currentPage"
 				 :style="{color: currentColor}"
 				 :cursor-spacing="cursorSpacing"
-				 @confirm="onInfoConfirm" 
+				 @confirm="onInfoConfirm"
 				 @blur="onInfoBlur" />
 			</view>
 			<!-- #endif -->
@@ -96,10 +96,10 @@
 		},
 		computed: {
 			totalPage() {
-				if (Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems)) == 0) { 
-					return Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems)) +1 
-				}else { 
-					return Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems)) 
+				if (Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems)) == 0) {
+					return Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems)) +1
+				}else {
+					return Math.ceil(parseFloat(this.totalItems) / parseFloat(this.pageItems))
 				}
 			},
 			autoHover() {
@@ -111,19 +111,16 @@
 			},
 			btnStyleStr() {
 				let styleStr = ''
-				let styleBtn={ 
+				let styleBtn={
 				border: 'none',
 				backgroundColor: 'rgb(255, 255, 255)',
-				boxShadow: 'rgba(0, 0, 0, 0.05) 0px -3px 7px 0px, rgba(0, 0, 0, 0.05) -3px 0px 7px 0px, rgba(0, 0, 0, 0.05) 3px 0px 7px 0px, rgba(0, 0, 0, 0.05) 0px 3px 7px 0px', 
-				borderRadius: '5px', 
-				marginLeft: '5px', 
+				boxShadow: 'rgba(0, 0, 0, 0.05) 0px -3px 7px 0px, rgba(0, 0, 0, 0.05) -3px 0px 7px 0px, rgba(0, 0, 0, 0.05) 3px 0px 7px 0px, rgba(0, 0, 0, 0.05) 0px 3px 7px 0px',
+				borderRadius: '5px',
+				marginLeft: '5px',
 				marginRight: '5px'
 			}
 				// this.btnStyle=styleBtn
-				console.log("this.btnStyle:"+styleBtn)
 				for (let key in styleBtn) {
-					console.log("key:"+key)
-					console.log("this.btnStyle[key]:"+styleBtn[key])
 					styleStr += `${this.sortFieldMatch(key)}: ${styleBtn[key]}; `
 				}
 				return styleStr
@@ -135,7 +132,7 @@
 				if (!Object.is(oPage, val)) {
 					this.currentPage = val
 					this.$emit('change', {
-						type: 'prop-page', 
+						type: 'prop-page',
 						current: this.currentPage,
 					})
 				}
@@ -265,7 +262,7 @@
 				}
 				if (!Object.is(oPage, this.currentPage)) {
 					this.$emit('change', {
-						type: 'input-page', 
+						type: 'input-page',
 						current: this.currentPage,
 					})
 				}
@@ -288,7 +285,7 @@
 				}
 				if (!Object.is(oPage, this.currentPage)) {
 					this.$emit('change', {
-						type: 'input-page', 
+						type: 'input-page',
 						current: this.currentPage,
 					})
 				}
@@ -372,7 +369,7 @@
 		justify-content: space-between;
 		flex-wrap: nowrap;
 	}
-	
+
 	.wyb-pagination-left {
 		flex: 1;
 		display: flex;
@@ -381,7 +378,7 @@
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 	}
-	
+
 	.wyb-pagination-right {
 		flex: 1;
 		display: flex;
@@ -402,7 +399,7 @@
 		border: 1px solid #e5e5e5;
 		white-space: nowrap;
 	}
-	
+
 	.wyb-pagination-first-page-i,
 	.wyb-pagination-prev-page-i,
 	.wyb-pagination-next-page-i,
@@ -434,7 +431,7 @@
 		justify-content: center;
 		flex: 1;
 	}
-	
+
 	.wyb-pagination-input input {
 		text-align: center;
 	}
@@ -442,11 +439,11 @@
 	.wyb-pagination-span {
 		margin: 0 2rpx;
 	}
-	
+
 	.wyb-pagination-info-total {
 		margin-left: 10rpx;
 	}
-	
+
 	.wyb-pagination-first-page-t:active,
 	.wyb-pagination-prev-page-t:active,
 	.wyb-pagination-next-page-t:active,
@@ -457,12 +454,12 @@
 	.wyb-pagination-last-page-i:active {
 		background-color: var(--hover) !important;
 	}
-	
+
 	.left-arrow {
 		transform: scale(0.9);
 		margin-right: 5rpx;
 	}
-	
+
 	.right-arrow {
 		margin-left: 5rpx;
 		transform: scale(0.9) rotate(180deg);
