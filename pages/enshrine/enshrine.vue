@@ -9,11 +9,35 @@
 			<u-tabs-swiper ref="uTabs" :list="list" :current="current" @change="tabsChange" :is-scroll="false" swiperWidth="750"></u-tabs-swiper>
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
-			<swiper-item class="swiper-item" v-for="(item, index) in list" :key="index">
+			<swiper-item class="swiper-item">
 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 					<booklist :booklist="listBook"></booklist>
 					<view class="pagination">
-						<wyb-pagination :showTotalItem="true"  @change="onPageChange" />
+						<wyb-pagination :showTotalItem="true" :current="pageBookNum" :pageItems="pageBookSize" :totalItems="totalBook" @change="value => onPageChange(value, 'book')" />
+					</view>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item class="swiper-item">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+					<booklist :booklist="listVideo"></booklist>
+					<view class="pagination">
+						<wyb-pagination :showTotalItem="true" :current="pageVideoNum" :pageItems="pageVideoSize" :totalItems="totalVideo" @change="value => onPageChange(value, 'video')" />
+					</view>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item class="swiper-item">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+					<booklist :booklist="listComic"></booklist>
+					<view class="pagination">
+						<wyb-pagination :showTotalItem="true" :current="pageComicNum" :pageItems="pageComicSize" :totalItems="totalComic" @change="value => onPageChange(value, 'comic')" />
+					</view>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item class="swiper-item">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+					<booklist :booklist="listMusic"></booklist>
+					<view class="pagination">
+						<wyb-pagination :showTotalItem="true" :current="pageMusicNum" :pageItems="pageMusicSize" :totalItems="totalMusic" @change="value => onPageChange(value, 'music')" />
 					</view>
 				</scroll-view>
 			</swiper-item>
@@ -33,6 +57,13 @@
 		data() {
 			return {
 				listBook: [],
+				listVideo: [],
+				listComic: [],
+				listMusic: [],
+				pageBookNum: 1,pageBookSize: 10,pagesBook: 1,totalBook: 0,
+				pageVideoNum: 1,pageVideoSize: 10,pagesVideo: 1,totalVideo: 0,
+				pageComicNum: 1,pageComicSize: 10,pagesComic: 1,totalComic: 0,
+				pageMusicNum: 1,pageMusicSize: 10,pagesMusic: 1,totalMusic: 0,
 				list: [{
 						name: '小说'
 					}, {
@@ -50,14 +81,11 @@
 		},
 		created(){
 			console.log("home 显示 created")
-			uni.showLoading({ //开启加载框
-			    title: '加载中'
-			});
-			this.randBookList();
+			this.bookList();
 			console.log("home 显示 created2")
 		},
 		methods: {
-			
+
 			toSearch() { //跳转搜索页
 				console.log("fasdfadfadfadsfadfasdfsdfsdfdfsfsaf");
 				// uni.navigateTo({
@@ -83,25 +111,42 @@
 			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
-				
+
 			},
-			randBookList(){ //猜你喜欢
+			bookList(){ //小说列表
 				let that=this
 				let data={
-					pageSize:10
+					bookType: 0, //查询全部
+					pageNum: that.pageBookNum,
+					pageSize: that.pageBookSize
 				}
-				api.randBookList(data).then(res => {
-					console.log(res.data.data)
-					that.listBook=that.listBook.concat(res.data.data)
-					uni.hideLoading(); //隐藏加载框
+				this.$api.sysBookType(data).then(res => {
+					if(res.data.status === 200){
+						that.pagesBook=res.data.data.pages;
+						that.totalBook=res.data.data.total;
+						that.listBook=res.data.data.list
+					}else{
+
+					}
 				}).catch(err => {
-					
 				});
-				
+
 			},
-			onPageChange(e) { //分页
+			onPageChange(e,type) { //分页
 				let pageNum = e.current // 页码
-				let type = e.type // 类型
+				console.log(type)
+				console.log(e)
+				if(type=='book'){
+					this.pageBookNum = e.current
+					this.bookList(this.bookType);
+				}else if (type=='video'){
+					this.pageVideoNum = e.current
+				}else if(type=='comic'){
+					this.pageComicNum = e.current
+				}else if(type=='music'){
+					this.pageMusicNum = e.current
+				}
+
 			}
 		}
 	}

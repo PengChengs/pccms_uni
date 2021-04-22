@@ -18,7 +18,7 @@
 							<text>{{item.name}}</text>
 						</view>
 						<view class="item-container">
-							<view class="thumb-box" v-for="(item1, index1) in item.foods" :key="index1">
+							<view class="thumb-box" v-for="(item1, index1) in item.foods" :key="index1" @click="toCatePage(item.name,item1.menuId)">
 								<image class="item-menu-image" :src="'https://s2.ax1x.com/2020/02/23/3lVcwt.png'" mode=""></image>
 								<view class="item-menu-name">{{item1.menuName}}</view>
 							</view>
@@ -45,21 +45,21 @@
 				arr: [],
 				scrollRightTop: 0, // 右边栏目scroll-view的滚动条高度
 				timer: null, // 定时器
-				
+
 			}
 		},
 		beforeCreate(){
-			
+
 		},
 		async created(){
 			await this.classifyList();
 		},
 		beforeMount(){
-			
+
 		},mounted(){
 			this.getMenuItemTop()
 		},
-		methods:{ 
+		methods:{
 			toSearch() { //跳转搜索页
 				uni.navigateTo({
 					url: '../../pages/search/search'
@@ -71,7 +71,7 @@
 				menuType:3
 			}
 			let classifyData=[];
-			
+
 			await api.mainSysMenuList(data1).then(res => {
 				let classify={
 					name:"小说",
@@ -79,7 +79,7 @@
 				};
 				classifyData.push(classify);
 			}).catch(err => {
-				
+
 			});
 			let data2={
 				menuType:3
@@ -91,7 +91,7 @@
 				};
 				classifyData.push(classify);
 			}).catch(err => {
-				
+
 			});
 			await api.mainSysMenuList(data2).then(res => {
 				let classify={
@@ -100,7 +100,7 @@
 				};
 				classifyData.push(classify);
 			}).catch(err => {
-				
+
 			});
 			await api.mainSysMenuList(data2).then(res => {
 				let classify={
@@ -108,13 +108,21 @@
 					foods:res.data.data
 				};
 				classifyData.push(classify);
-				
+
 			}).catch(err => {
-				
+
 			});
 			that.tabbar=classifyData;
 		},
-		
+			toCatePage(name,type){ //跳转到分类列表
+				if(name == '小说'){
+					uni.navigateTo({
+						url:'../book/book?bookType='+type
+					})
+				}
+
+			},
+
 			// 点击左边的栏目切换
 			async swichMenu(index) {
 				if(this.arr.length == 0) {

@@ -64,7 +64,7 @@
 		<!-- 小说正文开始 -->
 		<view class="sview" :style="{paddingTop:'calc('+statusBarHeight+' + 0px)',color:textColor,fontSize:forUpx(size)+'px',lineHeight:forUpx(lineHeight)+'px'}">
 			<view v-for="(dataInfo,dataKey) in info" :key="dataKey">
-				<view style="display:block;width:100%;height:80upx;line-height:80upx;text-align:center;font-size:35upx;border-bottom:1upx solid #d3d7d4;">{{dataInfo.chapterTiltle}}</view>
+				<view style="display:block;width:100%;text-align:center;font-size:35upx;border-bottom:1upx solid #d3d7d4;">{{dataInfo.chapterTiltle}}</view>
 				<rich-text :nodes="dataInfo.bookContext"></rich-text>
 	<!--			<view class="one-context" v-html="info.bookContext"></view>-->
 				<view class="line-dashed2">本章完</view>
@@ -397,7 +397,7 @@ export default{
 	}
 }
 </script>
-<style>
+<style scoped>
 	@font-face {font-family: "iconfont";
 	  src: url('@/static/font/dianliang.ttf') format('truetype');
 	}

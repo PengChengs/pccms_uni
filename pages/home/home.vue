@@ -14,28 +14,34 @@
 					<u-swiper mode="round" :interval="3000" :effect3d="false" :title="true" :list="list2" @click="swiperClick"></u-swiper>
 			</view>
 		</view>
-		
-		
+
+
 		<view class="integal-mall-menu">
-			<view class="col2"  data-link="/pages/client/tuan/ss?selectIndex=1">
+			<view class="col2" @click="toChangePage('book')">
 				<view>
 					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
 				</view>
 				<view class="ft14">精品小说</view>
 			</view>
-			<view class="col2 bd-left"    data-link="/pages/client/tuan/ss?selectIndex=2">
+			<view class="col2 bd-left" @click="toChangePage('video')" >
 				<view>
 					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
 				</view>
 				<view class="ft14 ftw600 mt6">热门视频</view>
 			</view>
-			<view class="col2 bd-left"  data-link="/pages/client/tuan/ss?selectIndex=3">
+			<view class="col2 bd-left" @click="toChangePage('comic')" >
 				<view>
 					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
 				</view>
 				<view class="ft14 ftw600 mt6">精彩漫画</view>
 			</view>
-			
+			<view class="col2 bd-left" @click="toChangePage('music')" >
+				<view>
+					<image style="width: 60rpx; height: 60rpx;" :src="'https://s2.ax1x.com/2020/02/23/3lVgTP.png'"></image>
+				</view>
+				<view class="ft14 ftw600 mt6">动感音乐</view>
+			</view>
+
 		</view>
 		<!-- 首页导航 -->
 		<!-- <view class="function">
@@ -48,7 +54,7 @@
 				</view>
 			</view>
 		</view> -->
-		
+
 		<!-- 推荐 -->
 		<view class="hot">
 			<u-section title="推荐小说" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
@@ -59,7 +65,7 @@
 			<u-section title="热门小说" sub-title="查看更多" @click="toBookList()" :show-line="true" :right="true" :bold="true" :color="color"></u-section>
 			<booklist2 :booklist='list4' />
 		</view>
-		
+
 		<!-- 猜你喜欢 -->
 		<view class="hot">
 			<u-section title="猜你喜欢" sub-title="查看更多" :show-line="true" :right="false" :bold="true" :color="color"></u-section>
@@ -126,7 +132,7 @@
 					list3:[],
 					list4:[],
 					list5:[]
-					
+
 			}
 		},
 		//页面生命周期
@@ -150,11 +156,11 @@
 			this.bookRecommendList();
 			this.bookHotList();
 			this.randBookList();
-			
+
 			console.log('屏幕高度：'+uni.getSystemInfoSync().screenHeight)
 		},mounted(){
 			console.log("home 显示 mounted")
-			
+
 		},
 		methods: {
 			toSearch() { //跳转搜索页
@@ -170,10 +176,24 @@
 				console.log(index)
 				console.log(this.list2[index])
 				console.log(this.list2[index].url)
-			},selectBtn(selectKey) { // 首页导航按钮 
+			},
+			toChangePage(type){ //选项跳转
+				if(type=='book'){
+					uni.navigateTo({
+						url: '../../pages/book/book'
+					});
+				}else if (type=='video'){
+
+				}else if(type=='comic'){
+
+				}else if(type=='music'){
+
+				}
+			},
+			selectBtn(selectKey) { // 首页导航按钮
 				console.log('你点了第' + selectKey + '个选项')
 			},toBookList(){ //查看更多
-				uni.redirectTo({
+				uni.navigateTo({
 					url:'../book/book'
 				});
 			},
@@ -186,7 +206,7 @@
 					console.log(res.data.data)
 					that.list3=res.data.data
 				}).catch(err => {
-					
+
 				});
 			},bookHotList(){ //热门小说
 				let that=this
@@ -199,7 +219,7 @@
 					that.list4=res.data.data
 					that.status='nomore'
 				}).catch(err => {
-					
+
 				});
 			},randBookList(){ //猜你喜欢
 				let that=this
@@ -211,9 +231,9 @@
 					that.list5=that.list5.concat(res.data.data)
 					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {
-					
+
 				});
-				
+
 			}
 		}
 	}
@@ -223,9 +243,9 @@
 
 .home-header{
 	display: block;
-	height: 150px;
+	height: 320upx;
 	width: 100%;
-	margin-bottom: 120px;
+	margin-bottom: 200upx;
 	-webkit-border-radius: 0px 0px 26px 26px;
 	border-radius: 0px 0px 26px 26px;
 	background: #0086E7;
@@ -233,7 +253,7 @@
 }
 
 .cont{
-	padding: 20upx 40upx 0upx 40upx;
+	/*padding: 20upx 40upx 0upx 40upx;*/
 	/* width: 100vw; */
 	/* height: 100vh; */
 	/* display: flex; */
@@ -259,7 +279,7 @@
 		height: 176rpx;
 		background: #FFFFFF;
 		border-radius: 48rpx;
-		
+
 		display: flex;
 		padding-bottom: 17px;
 		padding-top: 17px;

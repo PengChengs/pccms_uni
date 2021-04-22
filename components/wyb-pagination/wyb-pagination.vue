@@ -358,7 +358,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	@import 'iconfont.css';
 	.wyb-pagination-box {
 		width: 100%;

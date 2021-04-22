@@ -22,9 +22,7 @@
 		</view>
 		<view class="book-new">
 			<view class="new-title">
-				<view class="new-title-p new-title-p-left"></view>
-				<view class="new-title-p new-title-p-left">最新章节</view>
-				<view class="new-title-p new-title-p-right" @click="toChapter()">查看更多</view>
+				<u-section title="最新章节" sub-title="查看更多" :show-line="true" :right="true" :bold="true" :style="{top:'30%',position:'relative'}" @click="toChapter()"></u-section>
 			</view>
 			<view class="new-sub">
 				<view class="new-sub-list"  v-for="(information,dataKey) in chapterList" :key="dataKey" @click="toContent(information.chapterId)">
@@ -294,41 +292,8 @@
 		// float: left;
 		height: 80upx;
 		border-bottom: 1px solid #f2f2f2;
+		padding: 0upx 20upx 0upx 20upx;
 		// margin-left: 40upx;
-		.new-title-p{
-			display: block;
-			height: 100%;
-			line-height: 80upx;
-			// border: 1px solid red;
-		}
-		.new-title-p-left{
-			float: left;
-			font-weight: bold;
-			margin-left: 10upx;
-			.icon{
-				float: left;
-				display: block;
-				// transform: translateY(75%);
-				// border: 1px solid red;
-			}
-		}
-		.new-title-p-right{
-			float: right;
-			color: #999d9c;
-			margin-right: 20upx;
-			.icon{
-				float: right;
-				display: block;
-				// transform: translateY(10%);
-				// border: 1px solid red;
-			}
-		}
-		.new-title-p-right:active{
-			color: $uni-bg-color-hover;
-		}
-
-
-
 	}
 
 	.new-sub{
@@ -342,7 +307,7 @@
 			width: 100%;
 			float: left;
 			margin: 5upx 0upx 5upx;
-			font:30upx Microsoft Yahei;
+			font:26upx Microsoft Yahei;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;

@@ -17,7 +17,7 @@
 	@import "uview-ui/index.scss"; /*此乃uview-ui样式*/
 	/*每个页面公共css */
 	@import url("static/icon/iconfont.css"); /*此乃底部导航图标样式*/
-	
+
 	.page{ //tabbar 页面背景颜色及底部填充
 		background-color: #f2f2f2; //#f2f2f2
 		/* 视图窗口 */
@@ -36,7 +36,7 @@
 		background-color: #f2f2f2;
 		// border: 1px solid red;
 	}
-	
+
 	.clear-box{ //清除两侧浮动
 		clear: both;
 	}
@@ -47,7 +47,7 @@
 			top: $barHeight + $barTopHeight;
 		}
 	}
-	
+
 	/*苹果xs适配 H5APP*/
 	@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
 		.subject {
@@ -55,8 +55,8 @@
 			top: $barHeight + $barTopHeight;
 		}
 	}
-	
-	
+
+
 	/*苹果xr适配 H5APP*/
 	@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
 		.subject {
