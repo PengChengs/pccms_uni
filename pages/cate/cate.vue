@@ -84,42 +84,44 @@
 			let data2={
 				menuType:3
 			}
-			await api.mainSysMenuList(data2).then(res => {
-				let classify={
-					name:"视频",
-					foods:res.data.data
-				};
-				classifyData.push(classify);
-			}).catch(err => {
+			// await api.mainSysMenuList(data2).then(res => { //视频
+			// 	let classify={
+			// 		name:"视频",
+			// 		foods:res.data.data
+			// 	};
+			// 	classifyData.push(classify);
+			// }).catch(err => {
 
-			});
-			await api.mainSysMenuList(data2).then(res => {
-				let classify={
-					name:"漫画",
-					foods:res.data.data
-				};
-				classifyData.push(classify);
-			}).catch(err => {
+			// });
+			// await api.mainSysMenuList(data2).then(res => { //漫画
+			// 	let classify={
+			// 		name:"漫画",
+			// 		foods:res.data.data
+			// 	};
+			// 	classifyData.push(classify);
+			// }).catch(err => {
 
-			});
-			await api.mainSysMenuList(data2).then(res => {
-				let classify={
-					name:"音乐",
-					foods:res.data.data
-				};
-				classifyData.push(classify);
+			// });
+			// await api.mainSysMenuList(data2).then(res => { // 音乐
+			// 	let classify={
+			// 		name:"音乐",
+			// 		foods:res.data.data
+			// 	};
+			// 	classifyData.push(classify);
 
-			}).catch(err => {
+			// }).catch(err => {
 
-			});
+			// });
 			that.tabbar=classifyData;
 		},
 			toCatePage(name,type){ //跳转到分类列表
-				if(name == '小说'){
-					uni.navigateTo({
-						url:'../book/book?bookType='+type
-					})
-				}
+				console.log("进来饿了")
+				console.log(type)
+				// if(name == '小说'){
+				// 	uni.navigateTo({
+				// 		url:'../book/book?bookType='+type
+				// 	})
+				// }
 
 			},
 

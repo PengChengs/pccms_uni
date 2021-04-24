@@ -81,19 +81,18 @@
 					console.log(index);
 				} else if(index === 4){
 					console.log("进来了1")
-					uni.getStorage({
-						key: 'Authorization',
-						success: function (res) {
-							console.log("进来了2")
-							console.log(res);
-						},fail:function (err) {
-							console.log("进来了3")
-							console.log(err);
-							uni.navigateTo({
-								url: '../../pages/login/login'
-							});
-						}
-					});
+					const value = uni.getStorageSync('Authorization');
+					if (value) {
+						console.log("进来了2")
+						console.log(value);
+						this.$emit('toIndex', index)
+						this.home = index
+					}else{
+						console.log("进来了3")
+						uni.navigateTo({
+							url: '../../pages/login/login'
+						});
+					}
 				} else {
 					this.$emit('toIndex', index)
 					this.home = index

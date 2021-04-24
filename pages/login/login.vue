@@ -22,13 +22,13 @@
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/account.png?sign=599d8600e2d55f39ebd1cbc159a04729&t=1604049340"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text" value="" :maxlength="11" placeholder="请输入您的手机号/邮箱"
+				<input class="vs-flex-item color-base font-30" type="text" v-model="username" value="" :maxlength="11" placeholder="请输入您的手机号/邮箱"
 				 placeholder-class="input-placeholder" />
 			</view>
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/password.png?sign=9f8fdd0ae0a1ae530a9226de8917ebbd&t=1604049354"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text" password value="" placeholder="请输入您的登录密码"
+				<input class="vs-flex-item color-base font-30" type="text" v-model="password" password value="" placeholder="请输入您的登录密码"
 				 placeholder-class="input-placeholder" />
 			</view>
 		</view>
@@ -37,19 +37,22 @@
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/account.png?sign=599d8600e2d55f39ebd1cbc159a04729&t=1604049340"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text" value="" :maxlength="11" placeholder="请输入您的手机号/邮箱"
+				<input class="vs-flex-item color-base font-30" type="text"  :maxlength="11" placeholder="请输入您的手机号/邮箱"
 				 placeholder-class="input-placeholder" />
 			</view>
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/password.png?sign=9f8fdd0ae0a1ae530a9226de8917ebbd&t=1604049354"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text" password value="" placeholder="请输入您的登录密码"
+				<input class="vs-flex-item color-base font-30" type="text" password  placeholder="请输入您的登录密码"
 				 placeholder-class="input-placeholder" />
 			</view>
 		</view>
 
-		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20">
-			<text class="color-white font-34">立即{{ cur ? '注册': '登录' }}</text>
+		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20" v-if="cur">
+			<text class="color-white font-34">立即{{ '注册' }}</text>
+		</view>
+		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20" v-else @click="login">
+			<text class="color-white font-34">立即{{ '登录' }}</text>
 		</view>
 
 		<view class="vs-row vs-align-center vs-space-center margin-b100">
@@ -69,6 +72,8 @@
 				<image class="other-icon" src="/static/other/zfb.png" mode=""></image>
 			</view>
 		</view>
+		<!-- 弹框消息 -->
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -76,7 +81,48 @@
 	export default {
 		data() {
 			return {
-				cur: 0
+				cur: 0,
+				username:'',
+				password:'',
+				grant_type:'password',
+				scope:'write',
+				client_id:'admin',
+				client_secret:'123',
+				auth_type:'username',
+				message:''
+			}
+		},
+		methods:{
+			login(){
+				let data={
+					username: this.username,
+					password: this.password,
+					grant_type: this.grant_type,
+					scope: this.scope,
+					client_id: this.client_id,
+					client_secret: this.client_secret,
+					auth_type: this.auth_type
+				}
+				this.$api.token(data).then(res => {
+					console.log(res.data)
+					if(res.data.status === 200){
+						let Authorization=res.data.token_type+" "+ res.data.access_token;
+						console.log(Authorization)
+						uni.setStorageSync('Authorization',Authorization);
+						uni.setStorageSync('refresh_token',res.data.refresh_token);
+						uni.reLaunch({
+							url: '../../pages/index/index'
+						});
+					}else{
+						this.$refs.uToast.show({
+							title: res.data.msg,
+							type: 'error'
+						})
+					}
+
+				}).catch(err => {
+
+				});
 			}
 		}
 	}

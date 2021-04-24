@@ -72,6 +72,9 @@
 			<booklist :booklist='list5' />
 		</view>
 		<u-divider bg-color="#f2f2f2" color="#a1a3a6" margin-top="20" margin-bottom="40" half-width="200">我也是有底线的</u-divider>
+		
+		<!-- 弹框提示 -->
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -183,11 +186,11 @@
 						url: '../../pages/book/book'
 					});
 				}else if (type=='video'){
-
+					this.$refs.uToast.show({title: '暂未开放,敬请期待~'})
 				}else if(type=='comic'){
-
+					this.$refs.uToast.show({title: '暂未开放,敬请期待~'})
 				}else if(type=='music'){
-
+					this.$refs.uToast.show({title: '暂未开放,敬请期待~'})
 				}
 			},
 			selectBtn(selectKey) { // 首页导航按钮

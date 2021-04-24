@@ -95,6 +95,13 @@
                 //摇树优化
                 "enable" : true
             }
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : ""
+                }
+            }
         }
     }
 }

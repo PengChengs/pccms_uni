@@ -5,9 +5,9 @@
 				<view class="box">
 					<view class="box-hd">
 						<view class="avator">
-							<img src="/static/other/3.png">
+							<img :src="user.avatar">
 						</view>
-						<view class="phone-number">187****8888</view>
+						<view class="phone-number">{{user.userName}}</view>
 					</view>
 					<view class="box-bd">
 						<view class="item">
@@ -75,6 +75,9 @@
 					<image class="to" src="/static/other/youjiantou.png"></image>
 				</view>
 			</view>
+			<view class="exit" @click="logout()">
+				<view class="exit-box">退出登录</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -82,15 +85,52 @@
 	export default {
 		data() {
 			return {
-				url: 'https://ext.dcloud.net.cn/plugin?id=223'
+				user: {}, //用户信息
+				vip:{}, //vip信息
+				authorities:[] //权限信息
 			};
 		},
-		onLoad() {},
-		methods: {}
+		created() {
+			this.getUserInfo();
+		},
+		methods: {
+			getUserInfo(){ //查看个人信息
+				this.$api.getUserInfo().then(res => {
+					console.log(res.data)
+					if(res.data.status === 200){
+						this.user=res.data.data.user
+						this.vip=res.data.data.vip
+						this.authorities=res.data.data.authorities
+					}else{
+
+					}
+
+				}).catch(err => {
+
+				});
+			},
+			logout(){ //退出登录
+				this.$api.logout().then(res => {
+					uni.clearStorage();
+					console.log(res.data)
+					if(res.data.status === 200){
+						uni.clearStorage();
+						uni.reLaunch({
+							url: '../../pages/index/index'
+						});
+					}else{
+
+					}
+
+				}).catch(err => {
+
+				});
+			}
+		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	page {
 		background-color: #f1f1f1;
 		font-size: 30upx;
@@ -230,5 +270,26 @@
 				height: 40upx;
 			}
 		}
+	}
+	.exit {
+		height: 100rpx;
+		line-height: 100rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: red;
+		font-size: 32rpx;
+		// .exit-box {
+		// 	display: flex;
+		// 	justify-content: center;
+		// 	align-items: center;
+		// 	background: #ffaa7f;
+		// 	font-size: 28rpx;
+		// 	width: 200rpx;
+		// 	padding: 10rpx 20rpx;
+		// 	color: #FFFFFF;
+		// 	height: 70rpx;
+		// 	border-radius: 10rpx;
+		// }
 	}
 </style>

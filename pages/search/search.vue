@@ -2,7 +2,7 @@
 	<view class="page">
 		<!-- 搜索框 -->
 		<view class="search-page">
-			<u-search placeholder="请输入关键字" :show-action="false" :clearabled="true" @focus="toSearch()"></u-search>
+			<u-search placeholder="请输入关键字" :show-action="true" :clearabled="true" v-model="likeName" @search="bookList" @custom="bookList"></u-search>
 		</view>
 		<!-- 切换选项卡 -->
 		<view>
@@ -56,6 +56,7 @@
 		},
 		data() {
 			return {
+				likeName:'', //搜索 小说名或作者关键字
 				listBook: [],
 				listVideo: [],
 				listComic: [],
@@ -85,13 +86,6 @@
 			console.log("home 显示 created2")
 		},
 		methods: {
-
-			toSearch() { //跳转搜索页
-				console.log("fasdfadfadfadsfadfasdfsdfsdfdfsfsaf");
-				// uni.navigateTo({
-				// 	url: '../../pages/search/search'
-				// });
-			},
 			// tabs通知swiper切换
 			tabsChange(index) {
 				this.swiperCurrent = index;
@@ -116,11 +110,11 @@
 			bookList(){ //小说列表
 				let that=this
 				let data={
-					bookType: 0, //查询全部
+					likeName: that.likeName, //查询全部
 					pageNum: that.pageBookNum,
 					pageSize: that.pageBookSize
 				}
-				this.$api.sysBookType(data).then(res => {
+				this.$api.selectSysBook(data).then(res => {
 					if(res.data.status === 200){
 						that.pagesBook=res.data.data.pages;
 						that.totalBook=res.data.data.total;
