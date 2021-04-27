@@ -37,18 +37,18 @@
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/account.png?sign=599d8600e2d55f39ebd1cbc159a04729&t=1604049340"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text"  :maxlength="11" placeholder="请输入您的手机号/邮箱"
+				<input class="vs-flex-item color-base font-30" type="text" v-model="newUserName" :maxlength="11" placeholder="请输入您的手机号/邮箱"
 				 placeholder-class="input-placeholder" />
 			</view>
 			<view class="input vs-row vs-align-center margin-b40">
 				<image class="input-icon margin-r20" src="https://6e69-niew6-1302638010.tcb.qcloud.la/denglu/%E7%99%BB%E5%BD%955/password.png?sign=9f8fdd0ae0a1ae530a9226de8917ebbd&t=1604049354"
 				 mode=""></image>
-				<input class="vs-flex-item color-base font-30" type="text" password  placeholder="请输入您的登录密码"
+				<input class="vs-flex-item color-base font-30" type="text" v-model="newPassWord" password  placeholder="请输入您的登录密码"
 				 placeholder-class="input-placeholder" />
 			</view>
 		</view>
 
-		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20" v-if="cur">
+		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20" v-if="cur" @click="insertOauthUserName">
 			<text class="color-white font-34">立即{{ '注册' }}</text>
 		</view>
 		<view class="button bg-color-base vs-row vs-align-center vs-space-center margin-b20" v-else @click="login">
@@ -73,7 +73,7 @@
 			</view>
 		</view>
 		<!-- 弹框消息 -->
-		<u-toast ref="uToast" />
+		<u-toast ref="uToast" position="top" />
 	</view>
 </template>
 
@@ -84,6 +84,8 @@
 				cur: 0,
 				username:'',
 				password:'',
+				newUserName:'',
+				newPassWord:'',
 				grant_type:'password',
 				scope:'write',
 				client_id:'admin',
@@ -93,7 +95,7 @@
 			}
 		},
 		methods:{
-			login(){
+			login(){ //登录
 				let data={
 					username: this.username,
 					password: this.password,
@@ -116,16 +118,42 @@
 					}else{
 						this.$refs.uToast.show({
 							title: res.data.msg,
-							type: 'error'
+							type: 'error',
+								position: 'top'
 						})
 					}
 
 				}).catch(err => {
 
 				});
-			}
+			},
+			insertOauthUserName(){ //通过用户名注册账号
+				let data={
+					username: this.newUserName,
+					password: this.newPassWord
+				}
+			
+				this.$api.insertOauthUserName(data).then(res => {
+						console.log(res.data)
+						if(res.data.status === 200){
+							uni.reLaunch({
+								url: '../../pages/index/index'
+							});
+						}else{
+							this.$refs.uToast.show({
+								title: res.data.msg,
+								type: 'error',
+								position: 'top'
+							})
+						}
+				
+				}).catch(err => {
+			
+				});
+			},
 		}
 	}
+
 </script>
 
 <style lang="scss">

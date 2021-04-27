@@ -79,7 +79,7 @@
 						url: '../../pages/search/search'
 					});
 					console.log(index);
-				} else if(index === 4){
+				} else if(index === 3 || index === 4){
 					console.log("进来了1")
 					const value = uni.getStorageSync('Authorization');
 					if (value) {

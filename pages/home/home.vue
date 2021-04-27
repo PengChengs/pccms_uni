@@ -3,7 +3,7 @@
 		<view class="home-header">
 			<!-- 通知 -->
 			<view class="cont">
-				<u-notice-bar mode="horizontal" type="primary" :speed="80" :is-circular="true" :more-icon="true" :list="list" @click="notice"></u-notice-bar>
+				<u-notice-bar  type="primary" :speed="80" :is-circular="true" :more-icon="true" :list="list" @click="notice"></u-notice-bar>
 			</view>
 			<!-- 搜索框 -->
 			<view class="search-page">
@@ -156,6 +156,7 @@
 			uni.showLoading({ //开启加载框
 			    title: '加载中'
 			});
+			this.getSysMessageList();
 			this.bookRecommendList();
 			this.bookHotList();
 			this.randBookList();
@@ -166,19 +167,28 @@
 
 		},
 		methods: {
+			getSysMessageList(){ //查询头部通知
+
+				api.getSysMessageList().then(res => {
+					if(res.data.status == 200){
+						let message=[];
+						for(let context of res.data.data.list){
+							message=message.concat(context.messageContext)
+						}
+						this.list=message
+					}
+				}).catch(err => {
+				
+				});
+			},
 			toSearch() { //跳转搜索页
-				console.log("fasdfadfadfadsfadfasdfsdfsdfdfsfsaf");
 				uni.navigateTo({
 					url: '../../pages/search/search'
 				});
 			},
 			notice(){ //通知栏点击事件
-				console.log(this.data.list2)
 			},
 			swiperClick(index){ //
-				console.log(index)
-				console.log(this.list2[index])
-				console.log(this.list2[index].url)
 			},
 			toChangePage(type){ //选项跳转
 				if(type=='book'){
@@ -206,7 +216,6 @@
 					pageSize:6
 				}
 				api.bookRecommendList(data).then(res => {
-					console.log(res.data.data)
 					that.list3=res.data.data
 				}).catch(err => {
 
@@ -218,7 +227,6 @@
 					pageSize:6
 				}
 				api.bookHotList(data).then(res => {
-					console.log(res.data.data)
 					that.list4=res.data.data
 					that.status='nomore'
 				}).catch(err => {
@@ -230,7 +238,6 @@
 					pageSize:10
 				}
 				api.randBookList(data).then(res => {
-					console.log(res.data.data)
 					that.list5=that.list5.concat(res.data.data)
 					uni.hideLoading(); //隐藏加载框
 				}).catch(err => {

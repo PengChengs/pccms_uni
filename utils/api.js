@@ -11,11 +11,16 @@ exports.logout = (data) => { //退出登录
 exports.getUserInfo = (data) => { //查看个人信息
     return http.get('/api/auth/user/getUserInfo',{params: data})
 }
-
 exports.mainSysMenuList = (data) => { //前台菜单列表 菜单类型（1.菜单 2.按钮 3.小说 4.视频 5.漫画）这里主要用在 3 4 5
     return http.get('/api/auth/sysMenu/mainSysMenuList',{params: data})
 }
+exports.getSysMessageList = () => { //根据标题类型查询公告通知列表
+    return http.get('/api/auth/message/getSysMessageList')
+}
 
+exports.insertOauthUserName = (data) => { //通过用户名注册账号
+    return http.post('/api/auth/sysUser/insertOauthUserName',data)
+}
 //------------------------------------------------------------系统模块 end----------------------------------------------------------------------//
 //------------------------------------------------------------小说模块 start----------------------------------------------------------------------//
 
@@ -33,6 +38,9 @@ exports.selectSysBook = (data) => { //搜索小说名或作者
 }
 exports.sysBookType = (data) => { //小说类型最近更新列表，全部,用在分类小说上
     return http.get('/api/book/bk/sysBookType',{params: data})
+}
+exports.selectCollectSysBook = (data) => { //收藏夹中的小说
+    return http.get('/api/book/collect/selectCollectSysBook',{params: data})
 }
 exports.sysBook = (data) => { //查询书籍详情
     return http.get('/api/book/bk/sysBook',{params: data})
