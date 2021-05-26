@@ -115,13 +115,11 @@
 			that.tabbar=classifyData;
 		},
 			toCatePage(name,type){ //跳转到分类列表
-				console.log("进来饿了")
-				console.log(type)
-				// if(name == '小说'){
-				// 	uni.navigateTo({
-				// 		url:'../book/book?bookType='+type
-				// 	})
-				// }
+				if(name == '小说'){
+					uni.navigateTo({
+						url:'../book/book?bookType='+type
+					})
+				}
 
 			},
 

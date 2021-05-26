@@ -66,13 +66,13 @@
 					clickName:'周点击榜'
 				},{
 					clickListType:3,
-					clickName:'总推荐榜'
+					clickName:'总搜索榜'
 				},{
 					clickListType:4,
-					clickName:'月推荐榜'
+					clickName:'月搜索榜'
 				},{
 					clickListType:5,
-					clickName:'周推荐榜'
+					clickName:'周搜索榜'
 				},{
 					clickListType:6,
 					clickName:'收藏榜'
@@ -84,12 +84,19 @@
 			console.log(option)
 			if(Object.keys(option).length != 0){
 				this.bookType=option.bookType
+				this.$nextTick(() => {
+					this.bookList();
+					this.mainSysMenuList(option.bookType);
+				});
 			}else{
 				this.bookType=0
+				this.$nextTick(() => {
+					this.bookList();
+					this.mainSysMenuList(0);
+				});
 			}
 
-			this.bookList(this.bookType);
-			this.mainSysMenuList();
+			
 
 		},
 		onPageScroll(e) { //回到顶部
@@ -100,19 +107,18 @@
 
 		},watch: {
 			bookType(val) {
-				console.log(val)
 				this.pageNum=1
 			}
 		},
 		methods: {
-			mainSysMenuList(){ //分类列表
+			async mainSysMenuList(index){ //分类列表
 				let that=this
 				let data={
 					menuType: that.menuType
 				}
-
-				console.log(that.menuList)
-				this.$api.mainSysMenuList(data).then(res => {
+				let oldType=index
+				console.log("old:"+oldType)
+				await this.$api.mainSysMenuList(data).then(res => {
 					console.log(res.data)
 					if(res.data.status === 200){
 						that.menuList=[];
@@ -127,7 +133,11 @@
 						menus.push.apply(menus,res.data.data);
 						console.log(menus)
 						that.menuList=menus
-						console.log(that.menuList)
+						this.$nextTick(() => {
+							console.log("n:"+this.bookType)
+							console.log("o:"+oldType)
+							this.bookType=oldType
+						});
 					}else{
 						this.$refs.uToast.show({
 							title: '网络错误',
@@ -200,7 +210,7 @@
 				let type = e.type // 类型
 				console.log(e)
 				this.pageNum = e.current
-				this.bookList(this.bookType);
+				this.bookList();
 			}
 			// changeType(bookType){
 			// 	this.bookType=bookType
